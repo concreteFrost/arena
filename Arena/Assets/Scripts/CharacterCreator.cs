@@ -3,30 +3,43 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
+
 
 public class CharacterCreator : MonoBehaviour
 {
     public List<GameObject> characterList = new List<GameObject>();
     public List<GameObject> itemsList = new List<GameObject>();
-    public GameObject character;
-    public GameObject item;
     public List<Material> maleMaterialList = new List<Material>();
     public List<Material> femaleMaterialList = new List<Material>();
+    
+    public static GameObject character;
+    public GameObject item;
+  
     public TMP_Dropdown[] dropdowns;
     public TMP_Dropdown hatsDropdown;
     public Button[] genderChoiseButtons;
+    public TMP_InputField nameInput;
+
+    public TMP_Text[] playerStatsUI;
+    
     // Start is called before the first frame update
     void Start()
     {
         GameObject ch = Instantiate(characterList[0], new Vector3(0, 0, 0), Quaternion.identity);
+
         character = ch;
     }
 
     // Update is called once per frame
     void Update()
     {
-        RotateCharacterOnStage();
-            
+        var stats = character.GetComponent<PlayerStats>();
+        playerStatsUI[1].text = "Health: "+ stats.health.ToString();
+        playerStatsUI[2].text = "Stamina: "+ stats.stamina.ToString();
+        playerStatsUI[3].text = "Speed: " +stats.speed.ToString();
+        playerStatsUI[4].text = "Total Price: " + stats.price.ToString();
+
     }
 
 
@@ -34,10 +47,22 @@ public class CharacterCreator : MonoBehaviour
     {
         ChangeClothes();
         ChangeItems();
+
+        
+    }
+
+    public void SubmitName()
+    {
+        if (nameInput.text.Length > 0)
+        {
+            playerStatsUI[0].text = "Name: " + nameInput.text;
+            character.GetComponent<PlayerStats>().name = nameInput.text;
+        }
     }
 
     void ChangeItems()
     {
+
         hatsDropdown.onValueChanged.AddListener((x) =>
         {
             if(item != null)
@@ -47,7 +72,34 @@ public class CharacterCreator : MonoBehaviour
             GameObject i = Instantiate(itemsList[hatsDropdown.value], hatPosition.transform.position, Quaternion.LookRotation(Vector3.forward,hatPosition.transform.position));
             i.transform.parent = hatPosition.transform;
             item = i;
+
+            var itemType = item.GetComponent<ItemStats>().boosterType;
+            var plStats = character.GetComponent<PlayerStats>();
+            switch (itemType)
+            {
+                case BoosterType.health:
+                    plStats.health += 20;
+                    plStats.speed = plStats.defSpeed;
+                    plStats.stamina = plStats.defStamina;
+                    
+                    break;
+                case BoosterType.speed:
+                    plStats.speed += 2;
+                    plStats.health = plStats.defHealth;
+                    plStats.stamina = plStats.defStamina;
+                   
+                    break;
+                case BoosterType.stamina:
+                    plStats.stamina += 20;
+                    plStats.health = plStats.defHealth;
+                    plStats.speed = plStats.defSpeed;
+                    
+                    break;
+            }
+            plStats.price = plStats.minPrice;
+            plStats.price += i.GetComponent<ItemStats>().i_price;
         });
+
        
     }
 
@@ -102,6 +154,7 @@ public class CharacterCreator : MonoBehaviour
             case "male":
                 ch = Instantiate(characterList[0], new Vector3(0, 0, 0), Quaternion.identity);
                 character = ch;
+                
                 break;
             case "female":
                 ch = Instantiate(characterList[1], new Vector3(0, 0, 0), Quaternion.identity);
@@ -115,18 +168,16 @@ public class CharacterCreator : MonoBehaviour
         }
 
         hatsDropdown.value = 0;
+        character.GetComponent<PlayerStats>().name = nameInput.text;
 
-        
 
     }
 
-    void RotateCharacterOnStage()
+
+    public void CreateCharacter()
     {
-        var mouseX = Input.GetAxisRaw("Mouse X") * Time.deltaTime * 1500f;
-
-        if (Input.GetMouseButton(1))
-            character.transform.Rotate(0, mouseX, 0);
-
+        DontDestroyOnLoad(character);
+        LoadPlayer.player = character;
+        Application.LoadLevel(1);
     }
-
 }

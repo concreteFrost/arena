@@ -965,11 +965,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3099125156658460995}
-  - component: {fileID: 3438949029761836983}
   - component: {fileID: 2477692300499615319}
   m_Layer: 0
   m_Name: Female
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -996,26 +995,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &3438949029761836983
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2326563599636161529}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: f6438fd4f0d42194ba4271d285e4233c, type: 3}
-  m_Controller: {fileID: 9100000, guid: 8d46c1fe20420894394c7fa2ecd3f8d4, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &2477692300499615319
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1028,10 +1007,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f0c46f35dae6c845912722855d1f351, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  name: 
   speed: 4
+  defSpeed: 4
   health: 100
+  defHealth: 100
+  stamina: 100
+  defStamina: 100
+  minPrice: 200
+  price: 200
   gender: 1
-  overallPrice: 0
 --- !u!1 &2514867231282690013
 GameObject:
   m_ObjectHideFlags: 0
