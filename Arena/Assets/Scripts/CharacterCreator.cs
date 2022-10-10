@@ -40,6 +40,13 @@ public class CharacterCreator : MonoBehaviour
         playerStatsUI[3].text = "Speed: " +stats.speed.ToString();
         playerStatsUI[4].text = "Total Price: " + stats.price.ToString();
 
+        if (Input.GetMouseButton(1))
+        {
+            var rotX = Input.GetAxis("Mouse X") * Time.deltaTime * 1000;
+
+            character.transform.Rotate(Vector3.up * rotX);
+        }
+
     }
 
 
@@ -69,7 +76,7 @@ public class CharacterCreator : MonoBehaviour
                 Destroy(item.gameObject);
 
             var hatPosition = GameObject.FindGameObjectWithTag("hatPlacer");
-            GameObject i = Instantiate(itemsList[hatsDropdown.value], hatPosition.transform.position, Quaternion.LookRotation(Vector3.forward,hatPosition.transform.position));
+            GameObject i = Instantiate(itemsList[hatsDropdown.value], hatPosition.transform.position,hatPosition.transform.root.localRotation);
             i.transform.parent = hatPosition.transform;
             item = i;
 
