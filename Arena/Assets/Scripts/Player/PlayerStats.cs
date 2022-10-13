@@ -25,4 +25,11 @@ public class PlayerStats : MonoBehaviour
     
     public Gender gender;
 
+    public void ResetParams()
+    {
+        health = defHealth;
+        speed = defSpeed;
+        stamina = defStamina;
+    }
+
 }

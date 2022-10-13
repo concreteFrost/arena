@@ -34,11 +34,7 @@ public class CharacterCreator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        var stats = character.GetComponent<PlayerStats>();
-        playerStatsUI[1].text = "Health: "+ stats.health.ToString();
-        playerStatsUI[2].text = "Stamina: "+ stats.stamina.ToString();
-        playerStatsUI[3].text = "Speed: " +stats.speed.ToString();
-        playerStatsUI[4].text = "Total Price: " + stats.price.ToString();
+        UpdateUI();
 
         if (Input.GetMouseButton(1))
         {
@@ -56,6 +52,16 @@ public class CharacterCreator : MonoBehaviour
         ChangeItems();
 
         
+    }
+
+     void UpdateUI()
+    {
+        var stats = character.GetComponent<PlayerStats>();
+
+        playerStatsUI[1].text = "Health: " + stats.health.ToString();
+        playerStatsUI[2].text = "Stamina: " + stats.stamina.ToString();
+        playerStatsUI[3].text = "Speed: " + stats.speed.ToString();
+        playerStatsUI[4].text = "Total Price: " + stats.price.ToString();
     }
 
     public void SubmitName()
@@ -82,25 +88,21 @@ public class CharacterCreator : MonoBehaviour
 
             var itemType = item.GetComponent<ItemStats>().boosterType;
             var plStats = character.GetComponent<PlayerStats>();
+            
+            plStats.ResetParams();
             switch (itemType)
             {
                 case BoosterType.health:
-                    plStats.health += 20;
-                    plStats.speed = plStats.defSpeed;
-                    plStats.stamina = plStats.defStamina;
                     
+                    plStats.health += 20;
                     break;
                 case BoosterType.speed:
-                    plStats.speed += 2;
-                    plStats.health = plStats.defHealth;
-                    plStats.stamina = plStats.defStamina;
-                   
+                    
+                    plStats.speed += 2;    
                     break;
                 case BoosterType.stamina:
-                    plStats.stamina += 20;
-                    plStats.health = plStats.defHealth;
-                    plStats.speed = plStats.defSpeed;
                     
+                    plStats.stamina += 20;         
                     break;
             }
             plStats.price = plStats.minPrice;
@@ -109,6 +111,7 @@ public class CharacterCreator : MonoBehaviour
 
        
     }
+
 
     void ChangeClothes()
     {
