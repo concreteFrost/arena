@@ -32,7 +32,7 @@ public class PlayerInteract : MonoBehaviour
                 var weaponIndex = other.GetComponent<Weapon>().id;
                 var db = GameObject.FindGameObjectWithTag("DataBase").GetComponent<Database>();
 
-                var w = inventory.weapons.Find((x) => x.GetComponent<Weapon>().id == weaponIndex);
+                var w = db.weapons.Find((x) => x.GetComponent<Weapon>().id == weaponIndex);
                 inventory.AddItem(w);
                 Destroy(other.gameObject);
             }

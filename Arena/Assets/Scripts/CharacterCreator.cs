@@ -22,12 +22,13 @@ public class CharacterCreator : MonoBehaviour
     public TMP_InputField nameInput;
 
     public TMP_Text[] playerStatsUI;
+    public TMP_Dropdown starterWeaponDropdown;
     
     // Start is called before the first frame update
     void Start()
     {
         GameObject ch = Instantiate(characterList[0], new Vector3(0, 0, 0), Quaternion.identity);
-
+        starterWeaponDropdown.value = PlayerPrefs.GetInt("Weapon On Start");
         character = ch;
     }
 
@@ -50,8 +51,7 @@ public class CharacterCreator : MonoBehaviour
     {
         ChangeClothes();
         ChangeItems();
-
-        
+        ChangeWeapon();
     }
 
      void UpdateUI()
@@ -183,11 +183,23 @@ public class CharacterCreator : MonoBehaviour
 
     }
 
+    public void ChangeWeapon()
+    {
+        starterWeaponDropdown.onValueChanged.AddListener((x) =>
+        {
+            PlayerPrefs.SetInt("Weapon On Start", starterWeaponDropdown.value);
+            Debug.Log(PlayerPrefs.GetInt("Weapon On Start"));
+        });
+       
+    }
+
 
     public void CreateCharacter()
     {
+        Debug.Log("Done");
         DontDestroyOnLoad(character);
         LoadPlayer.player = character;
         Application.LoadLevel(1);
+        
     }
 }

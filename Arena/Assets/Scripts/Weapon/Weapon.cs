@@ -7,6 +7,7 @@ public class Weapon : MonoBehaviour, IInteractable
     public int id;
     public string name;
     public float shooting_distance;
+    public Sprite weaponImage;
 
     public void Interact()
     {

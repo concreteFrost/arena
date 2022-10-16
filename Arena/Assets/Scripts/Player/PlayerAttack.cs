@@ -45,21 +45,6 @@ public class PlayerAttack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       if(Input.GetAxis("Mouse ScrollWheel") > 0)
-        {
-            Destroy(weaponInstance);
-            weaponIndex++;
-            weaponInstance = Instantiate(inventory.weapons[weaponIndex], weaponHolder.position, weaponHolder.rotation);
-            weaponInstance.transform.parent = weaponHolder;
-
-        }
-        if (Input.GetAxis("Mouse ScrollWheel") < 0)
-        {
-            Destroy(weaponInstance);
-            weaponIndex--;
-            weaponInstance = Instantiate(inventory.weapons[weaponIndex], weaponHolder.position, weaponHolder.rotation);
-            weaponInstance.transform.parent = weaponHolder;
-
-        }
+       
     }
 }
