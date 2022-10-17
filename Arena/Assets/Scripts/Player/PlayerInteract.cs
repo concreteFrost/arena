@@ -24,15 +24,15 @@ public class PlayerInteract : MonoBehaviour
         if(other.gameObject.GetComponent<IInteractable>() != null)
         {
             var inventory = gameObject.GetComponent<Inventory>();
-
-            var  c = inventory.weapons.Any((x)=>x.GetComponent<Weapon>().id == other.GetComponent<Weapon>().id);
+            Debug.Log("done");
+            var  c = inventory.weapons.Any((x)=>x.GetComponent<WeaponStats>().id == other.GetComponent<WeaponStats>().id);
             
             if (!c)
             {
-                var weaponIndex = other.GetComponent<Weapon>().id;
+                var weaponIndex = other.GetComponent<WeaponStats>().id;
                 var db = GameObject.FindGameObjectWithTag("DataBase").GetComponent<Database>();
 
-                var w = db.weapons.Find((x) => x.GetComponent<Weapon>().id == weaponIndex);
+                var w = db.weapons.Find((x) => x.GetComponent<WeaponStats>().id == weaponIndex);
                 inventory.AddItem(w);
                 Destroy(other.gameObject);
             }

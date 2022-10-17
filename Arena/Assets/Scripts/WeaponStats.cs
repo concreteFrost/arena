@@ -2,15 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Weapon : MonoBehaviour, IInteractable
+
+public enum TypeOfWeapon
+{
+    rifle,
+    pistol,
+    granade
+}
+public class WeaponStats : MonoBehaviour, IInteractable
 {
     public int id;
-    public string name;
-    public float shooting_distance;
     public Sprite weaponImage;
+    public TypeOfWeapon type;
 
     public void Interact()
     {
-       
+
     }
+
 }

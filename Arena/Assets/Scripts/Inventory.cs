@@ -11,6 +11,7 @@ public class Inventory : MonoBehaviour
     public int _weaponIndex;
     Transform weaponHolder;
     Database db;
+    PlayerShoot plShoot;
     public int weaponIndex
     {
         get { return _weaponIndex; }
@@ -28,11 +29,6 @@ public class Inventory : MonoBehaviour
                 _weaponIndex = value;
         }
     }
-    // Start is called before the first frame update
-    private void Awake()
-    {
-        
-    }
 
     private void Start()
     {
@@ -47,8 +43,8 @@ public class Inventory : MonoBehaviour
         weapons.Add(db.weapons[PlayerPrefs.GetInt("Weapon On Start")]);
         weaponInstance = Instantiate(db.weapons[PlayerPrefs.GetInt("Weapon On Start")], weaponHolder.position, weaponHolder.rotation);
         weaponInstance.transform.parent = weaponHolder;
-        weaponIcon.sprite = weaponInstance.GetComponent<Weapon>().weaponImage;
-        
+        weaponIcon.sprite = weaponInstance.GetComponent<WeaponStats>().weaponImage;
+        plShoot = GetComponent<PlayerShoot>();
 
     }
 
@@ -72,15 +68,15 @@ public class Inventory : MonoBehaviour
 
     void ChangeWeapon()
     {
-        if (Input.GetAxis("Mouse ScrollWheel") > 0)  
+        if (Input.GetAxis("Mouse ScrollWheel") > 0 && !plShoot.isAiming)  
             weaponIndex++;
-        if (Input.GetAxis("Mouse ScrollWheel") < 0) 
+        if (Input.GetAxis("Mouse ScrollWheel") < 0 && !plShoot.isAiming) 
             weaponIndex--;
 
         Destroy(weaponInstance);
         weaponInstance = Instantiate(weapons[weaponIndex], weaponHolder.position, weaponHolder.rotation);
         weaponInstance.transform.parent = weaponHolder;
-        weaponIcon.sprite = weaponInstance.GetComponent<Weapon>().weaponImage;
+        weaponIcon.sprite = weaponInstance.GetComponent<WeaponStats>().weaponImage;
     }
 
 

@@ -122,6 +122,8 @@ namespace StarterAssets
             }
         }
 
+        PlayerShoot pl_Shoot;
+        public GameObject combatCamera;
 
         private void Awake()
         {
@@ -141,6 +143,7 @@ namespace StarterAssets
             _input = GetComponent<StarterAssetsInputs>();
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
             _playerInput = GetComponent<PlayerInput>();
+            pl_Shoot = GetComponent<PlayerShoot>();
 #else
 			Debug.LogError( "Starter Assets package is missing dependencies. Please use Tools/Starter Assets/Reinstall Dependencies to fix it");
 #endif
@@ -253,10 +256,17 @@ namespace StarterAssets
 
             // note: Vector2's != operator uses approximation so is not floating point error prone, and is cheaper than magnitude
             // if there is a move input rotate player when the player is moving
-            if (_input.move != Vector2.zero)
+            if (_input.move != Vector2.zero )
             {
+                GameObject camTarget;
+                if (!pl_Shoot.isAiming)
+                    camTarget = _mainCamera;
+                else
+                    camTarget = combatCamera;
+
+
                 _targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg +
-                                  _mainCamera.transform.eulerAngles.y;
+                                  camTarget.transform.eulerAngles.y;
                 float rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, _targetRotation, ref _rotationVelocity,
                     RotationSmoothTime);
 
