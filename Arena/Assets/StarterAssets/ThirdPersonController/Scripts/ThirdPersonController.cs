@@ -271,6 +271,7 @@ namespace StarterAssets
                     RotationSmoothTime);
 
                 // rotate to face input direction relative to camera position
+                if(!pl_Shoot.isAiming)
                 transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
             }
 
