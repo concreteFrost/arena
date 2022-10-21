@@ -23,20 +23,26 @@ public class CharacterCreator : MonoBehaviour
 
     public TMP_Text[] playerStatsUI;
     public TMP_Dropdown starterWeaponDropdown;
+    Vector3 defaultTransform;
     
     // Start is called before the first frame update
     void Start()
     {
-        GameObject ch = Instantiate(characterList[0], new Vector3(0, 0, 0), Quaternion.identity);
+        defaultTransform = characterList[0].transform.localEulerAngles;
         starterWeaponDropdown.value = PlayerPrefs.GetInt("Weapon On Start");
-        character = ch;
+        character = characterList[0];
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        UpdateUI();
 
+        UpdateUI();
+    }
+
+    private void LateUpdate()
+    {
         if (Input.GetMouseButton(1))
         {
             var rotX = Input.GetAxis("Mouse X") * Time.deltaTime * 1000;
@@ -62,6 +68,8 @@ public class CharacterCreator : MonoBehaviour
         playerStatsUI[2].text = "Stamina: " + stats.stamina.ToString();
         playerStatsUI[3].text = "Speed: " + stats.speed.ToString();
         playerStatsUI[4].text = "Total Price: " + stats.price.ToString();
+
+        
     }
 
     public void SubmitName()
@@ -157,18 +165,20 @@ public class CharacterCreator : MonoBehaviour
 
     public void ChangeGender(string g)
     {
-        Destroy(character);
-        GameObject ch;
+
+       
         switch (g)
         {
             case "male":
-                ch = Instantiate(characterList[0], new Vector3(0, 0, 0), Quaternion.identity);
-                character = ch;
-                
+               
+                character = characterList[0];
+                characterList[0].gameObject.SetActive(true);
+                characterList[1].gameObject.SetActive(false);
                 break;
-            case "female":
-                ch = Instantiate(characterList[1], new Vector3(0, 0, 0), Quaternion.identity);
-                character = ch;
+            case "female":     
+                character = characterList[1];
+                characterList[0].gameObject.SetActive(false);
+                characterList[1].gameObject.SetActive(true);
                 break;
         }
 
@@ -178,7 +188,7 @@ public class CharacterCreator : MonoBehaviour
         }
 
         hatsDropdown.value = 0;
-        character.GetComponent<PlayerStats>().name = nameInput.text;
+        AssignCharacter();
 
 
     }
@@ -188,15 +198,24 @@ public class CharacterCreator : MonoBehaviour
         starterWeaponDropdown.onValueChanged.AddListener((x) =>
         {
             PlayerPrefs.SetInt("Weapon On Start", starterWeaponDropdown.value);
-            Debug.Log(PlayerPrefs.GetInt("Weapon On Start"));
         });
        
+    }
+
+    void AssignCharacter()
+    {
+        foreach(var c in characterList)
+        {
+            if (c.gameObject.activeSelf)
+                character = c;
+            character.transform.localEulerAngles = defaultTransform;
+        }
     }
 
 
     public void CreateCharacter()
     {
-        Debug.Log("Done");
+        character.transform.localEulerAngles = defaultTransform;
         DontDestroyOnLoad(character);
         LoadPlayer.player = character;
         Application.LoadLevel(1);

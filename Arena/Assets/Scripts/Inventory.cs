@@ -7,10 +7,12 @@ public class Inventory : MonoBehaviour
 {
     public List<GameObject> weapons = new List<GameObject>();
     public Image weaponIcon;
+    public Text weaponText;
+    public Text bulletAmountText;
     public GameObject weaponInstance;
     public int _weaponIndex;
     Transform weaponHolder;
-    Database db;
+    DataBaseManager db;
     PlayerShoot plShoot;
     public int weaponIndex
     {
@@ -32,18 +34,12 @@ public class Inventory : MonoBehaviour
 
     private void Start()
     {
+        db = GameObject.FindGameObjectWithTag("DataBase").GetComponent<DataBaseManager>();
 
-        db = GameObject.FindGameObjectWithTag("DataBase").GetComponent<Database>();
-        //Find Weapon Holder in Child
-        foreach (Transform t in transform.GetComponentsInChildren<Transform>())
-        {
-            if (t.CompareTag("Weapon Holder"))
-                weaponHolder = t;
-        }
-        weapons.Add(db.weapons[PlayerPrefs.GetInt("Weapon On Start")]);
-        weaponInstance = Instantiate(db.weapons[PlayerPrefs.GetInt("Weapon On Start")], weaponHolder.position, weaponHolder.rotation);
-        weaponInstance.transform.parent = weaponHolder;
-        weaponIcon.sprite = weaponInstance.GetComponent<WeaponStats>().weaponImage;
+        GetWeaponOnStart();
+        GetWeaponInfo();
+      
+        //Keep this variable to prevent change weapon when player is aiming
         plShoot = GetComponent<PlayerShoot>();
 
     }
@@ -52,13 +48,6 @@ public class Inventory : MonoBehaviour
     {
         ChangeWeapon();
 
-        foreach (var weapon in weapons)
-        {
-            if (weapon.GetComponent<BoxCollider>() != null)
-            {
-                weapon.GetComponent<BoxCollider>().enabled = false;
-            }
-        }
     }
 
     public void AddItem(GameObject w)
@@ -72,11 +61,42 @@ public class Inventory : MonoBehaviour
             weaponIndex++;
         if (Input.GetAxis("Mouse ScrollWheel") < 0 && !plShoot.isAiming) 
             weaponIndex--;
+        
+        for(int i = 0; i < weapons.Count; i++)
+        {
+            if (i == weaponIndex)
+            {
+                weapons[i].SetActive(true);
+                weaponInstance = weapons[i];
+                weaponInstance.GetComponent<BoxCollider>().enabled = false;
+            }
+                
+            else
+                weapons[i].SetActive(false);
+        }
+        GetWeaponInfo();
+    }
 
-        Destroy(weaponInstance);
-        weaponInstance = Instantiate(weapons[weaponIndex], weaponHolder.position, weaponHolder.rotation);
-        weaponInstance.transform.parent = weaponHolder;
+    void GetWeaponInfo()
+    {
         weaponIcon.sprite = weaponInstance.GetComponent<WeaponStats>().weaponImage;
+        weaponText.text = weaponInstance.GetComponent<WeaponStats>().weaponName;
+        bulletAmountText.text = weaponInstance.GetComponent<WeaponStats>().bulletCount.ToString();
+    }
+
+    void GetWeaponOnStart()
+    {
+        foreach (Transform t in transform.GetComponentsInChildren<Transform>())
+        {
+            if (t.CompareTag("Weapon Holder"))
+                weaponHolder = t;
+        }
+        GameObject w = Instantiate(db.weapons[PlayerPrefs.GetInt("Weapon On Start")], weaponHolder.position, weaponHolder.rotation);
+       w.transform.parent = weaponHolder;
+       w.GetComponent<BoxCollider>().enabled = false;
+        weaponInstance = w;
+        weapons.Add(w);
+        
     }
 
 

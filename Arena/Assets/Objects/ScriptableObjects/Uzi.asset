@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 954278e032b850142a43c1ff7b548612, type: 3}
+  m_Name: Uzi
+  m_EditorClassIdentifier: 
+  id: 1
+  weaponName: Uzi
+  weaponDamage: 5
+  coolDown: 0.1
+  recoilPower: 0.1
+  weaponImage: {fileID: -1773907331, guid: dcfc4ab82fa6f4747ae6e72b27d7bcb5, type: 3}
+  type: 0
+  shootingRange: 800
+  shotSound: {fileID: 8300000, guid: b5580429fb88ab3458987416611053eb, type: 3}
+  noAmmo: {fileID: 8300000, guid: b1dfe04fa0b17524688a78be68957b32, type: 3}
