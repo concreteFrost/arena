@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 637475674db379848ac43fa4e51cb374, type: 3}
+  m_Name: PlayerStats
+  m_EditorClassIdentifier: 
+  name: 
+  speed: 7
+  defSpeed: 7
+  health: 120
+  defHealth: 100
+  stamina: 100
+  defStamina: 100
+  minPrice: 200
+  price: 320
+  gender: 0
+  availableCharacters:
+  - {fileID: 4692441660320891829, guid: 63524c422b71f474aaa0b91fb999782a, type: 3}
+  - {fileID: 5739373894851189205, guid: de39fa2beb76a0d4dbe1bb26eeefa8ce, type: 3}
+  character: {fileID: 5739373894851189205, guid: de39fa2beb76a0d4dbe1bb26eeefa8ce,
+    type: 3}
+  additionalItem: {fileID: 0}
+  starterWeapon: {fileID: 1487774384131766, guid: ee329c3cd08e58645834d20702d7f6c6,
+    type: 3}

@@ -7,6 +7,7 @@ public class PlayerShoot : MonoBehaviour
 {
     Animator animator;
     public bool isAiming;
+    public bool isReloading;
     public GameObject cinemachine;
     public bool canShoot = true;
     public GameObject[] cams;
@@ -21,9 +22,6 @@ public class PlayerShoot : MonoBehaviour
     [Range(0, 1)]
     public float recoilY;
 
-    
-
-
     // Start is called before the first frame update
     void Start()
     {
@@ -36,24 +34,33 @@ public class PlayerShoot : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
+        var weapon = GetComponent<Inventory>().weaponInstance.GetComponent<WeaponStats>();
         if (Input.GetMouseButton(1))
         {
             isAiming = true;
             CameraControl();
             gameObject.transform.Rotate(0, Input.GetAxis("Mouse X") * 220 * Time.deltaTime, 0);
             
-            if (Input.GetMouseButton(0) && canShoot)
+            if (Input.GetMouseButton(0) && canShoot && !isReloading)
             {
 
-                Shoot();
-                
-                
+                Shoot(weapon);     
             }
         }
         if (Input.GetMouseButtonUp(1))
         {
             isAiming = false;
             CameraControl();
+        }
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+           
+            if(weapon.bulletsInMagazine != weapon.bulletCapacity)
+            {
+                isReloading = true;
+                Reload(weapon);
+            }
+           
         }
 
         AnimationControl();
@@ -77,16 +84,14 @@ public class PlayerShoot : MonoBehaviour
     void AnimationControl()
     {
         animator.SetBool("isAiming", isAiming);
+        animator.SetBool("isGunReloading", isReloading);
     }
 
-    void Shoot()
+    void Shoot(WeaponStats weapon)
     {
-        var weapon = GetComponent<Inventory>().weaponInstance.GetComponent<WeaponStats>();
-       
 
-        if (weapon.bulletCount > 0)
-        {
-           
+        if (weapon.bulletsInMagazine > 0)
+        {     
             RaycastHit hit;
             if (Physics.Raycast(combatCamera.transform.position, combatCamera.transform.forward, out hit, weapon.shootingRange))
             {
@@ -98,7 +103,7 @@ public class PlayerShoot : MonoBehaviour
             source.PlayOneShot(weapon.shotSound);
             StartCoroutine(Recoil(weapon));
 
-            weapon.bulletCount--;
+            weapon.bulletsInMagazine--;
             
         }
         else
@@ -106,6 +111,18 @@ public class PlayerShoot : MonoBehaviour
 
         StartCoroutine(CoolDown(weapon.coolDown));
 
+    }
+
+    void Reload(WeaponStats w)
+    {
+        if(w.bulletCount >=0 && w.bulletsInMagazine != w.bulletCapacity)
+        {
+            int amount = w.bulletCapacity - w.bulletsInMagazine;
+            amount = (w.bulletCount - amount) >= 0 ? amount : w.bulletCount;
+            w.bulletsInMagazine += amount;
+            w.bulletCount -= amount;
+            
+        }
     }
 
     IEnumerator CoolDown(float s)
@@ -121,6 +138,12 @@ public class PlayerShoot : MonoBehaviour
         c.rotation.y += weapon.recoilPower;
         c.rotation.x += Random.Range(-0.2f, 0.2f);
         yield return null;
+    }
+
+    //Calls in the Animation
+    public void EndReload()
+    {
+        isReloading = false;
     }
 
 

@@ -4,23 +4,18 @@ using UnityEngine;
 
 public class LoadPlayer : MonoBehaviour
 {
-
-    public static GameObject player;
+   
     public GameObject plArmature;
-    GameObject pl;
+    public PlayerStatsSO playerStatsSO;
+    public GameObject geometry;
+
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        pl = GameObject.FindGameObjectWithTag("Player");
-      
-      pl.transform.SetParent(transform);
+        GameObject pl = Instantiate(playerStatsSO.character, transform.position, Quaternion.identity);
+        pl.transform.SetParent(geometry.transform);
         plArmature.SetActive(false);
         plArmature.SetActive(true);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

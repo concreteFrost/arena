@@ -2,48 +2,44 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-public class PlayerStats : MonoBehaviour
+public enum Gender
+{
+    male,
+    female
+}
+[CreateAssetMenu(menuName ="Player/Player Stats")]
+public class PlayerStatsSO : ScriptableObject
 {
     public string name;
-    
+
     public float speed;
     public float defSpeed;
-    
+
     public float health;
     public float defHealth;
-   
+
     public float stamina;
     public float defStamina;
-    
+
     public float minPrice;
     public float price;
- 
+
     public Gender gender;
 
-    public PlayerStatsSO pl_stats;
+    public GameObject[] availableCharacters;
+    public GameObject character;
 
-    private void Start()
-    {
-        name = pl_stats.name;
-
-        speed = pl_stats.speed;
-        defSpeed = pl_stats.defSpeed;
-
-        health = pl_stats.health;
-        defHealth = pl_stats.defHealth;
-
-        minPrice = pl_stats.minPrice;
-        price = pl_stats.price;
-
-        gender = pl_stats.gender;
-    }
+    public GameObject additionalItem;
+    public GameObject starterWeapon;
 
     public void ResetParams()
     {
+        name = "";
         health = defHealth;
         speed = defSpeed;
         stamina = defStamina;
+        price = minPrice;
+        gender = Gender.male;
+        character = availableCharacters[0];
     }
-
 }
