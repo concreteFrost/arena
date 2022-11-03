@@ -22,6 +22,7 @@ public class PlayerStats : MonoBehaviour
     public Gender gender;
 
     public PlayerStatsSO pl_stats;
+    public VariablesSO pl_position;
 
     private void Start()
     {
@@ -44,6 +45,11 @@ public class PlayerStats : MonoBehaviour
         health = defHealth;
         speed = defSpeed;
         stamina = defStamina;
+    }
+
+    private void Update()
+    {
+        pl_position.pos = transform.position;
     }
 
 }

@@ -96,6 +96,8 @@ public class PlayerShoot : MonoBehaviour
             if (Physics.Raycast(combatCamera.transform.position, combatCamera.transform.forward, out hit, weapon.shootingRange))
             {
                 hit.transform.GetComponent<IDamagable>()?.TakeDamage(weapon.weaponDamage);
+
+
                 GameObject hitEffect = Instantiate(weapon.hitEffect, hit.point, Quaternion.LookRotation(hit.normal));
                 Destroy(hitEffect, 1f);
             }
