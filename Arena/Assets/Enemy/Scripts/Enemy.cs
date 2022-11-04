@@ -28,5 +28,7 @@ public class Enemy : MonoBehaviour
     {
         if(anim.GetBool("isInAttackRange"))
         transform.LookAt(pl_pos.pos);
+
     }
+
 }

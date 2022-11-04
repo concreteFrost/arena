@@ -11,47 +11,68 @@ public class EnemyStrafeBehaviour : StateMachineBehaviour
     float timeBeforeChange;
     string[] strafeDirections;
 
+    float waitTillRunToCover;
+
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         agent = animator.GetComponent<NavMeshAgent>();
         stats = animator.GetComponent<Enemy>();
-        timeBeforeChange = Random.Range(2, 5);
+      
         strafeDirections = new[] { "left", "right" };
         StrafeDirection(strafeDirections[Random.Range(0, strafeDirections.Length - 1)]);
+
+        timeBeforeChange = Random.Range(2, 5);
+        waitTillRunToCover = Random.Range(5, 7);
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        agent.speed = 4;
+       
+        
         float dist = Vector3.Distance(agent.transform.position, pl_pos.pos);
-        if(dist > 15)
+
+        if(dist > 20 && animator.GetBool("isCovering") == false)
         {
             animator.SetBool("isInAttackRange", false);
         }
 
+        if(waitTillRunToCover > 0)
+        {
+            waitTillRunToCover-= Time.deltaTime;
+        }
 
-    
+        if(waitTillRunToCover <= 0)
+        {
+            Debug.Log("time out");
+            animator.SetBool("isCovering", true);
+            animator.SetBool("isInAttackRange", false);
+        }
 
         if(timeBeforeChange <= 0)
         {
             StrafeDirection(strafeDirections[Random.Range(0, strafeDirections.Length)]);
-            
+        
             timeBeforeChange = Random.Range(3, 5);
         }
         else
         {
             timeBeforeChange -= Time.deltaTime;
         }
-  
+
+        if (agent.remainingDistance < 1)
+        {
+            StrafeDirection(strafeDirections[Random.Range(0, strafeDirections.Length)]);
+        }
+       
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
-    //override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-    //    
-    //}
+    override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+
+    }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()
     //override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -67,21 +88,25 @@ public class EnemyStrafeBehaviour : StateMachineBehaviour
 
     void StrafeDirection(string dir)
     {
-            var dist = agent.transform.position - pl_pos.pos;
-           
+        agent.speed = 5;
+        var dist = agent.transform.position - pl_pos.pos;
+        
         Vector3 enemyDirection;
-        switch (dir)
+
+        
+        if (dir == "left")
         {
-            case "left":
-                enemyDirection = Vector3.Cross(dist, Vector3.up);
-                agent.SetDestination(agent.transform.position - enemyDirection);
-                Debug.Log("left");
-                break;
-            case "right":
-                enemyDirection = Vector3.Cross(dist, Vector3.down);
-                agent.SetDestination(agent.transform.position - enemyDirection);
-                Debug.Log("right");
-                break;
+            enemyDirection = Vector3.Cross(dist, Vector3.up);
+            agent.SetDestination(agent.transform.position - enemyDirection);
+            
         }
+        else
+        {
+            enemyDirection = Vector3.Cross(dist, Vector3.down);
+            agent.SetDestination(agent.transform.position - enemyDirection);
+        }
+
+     
+           
     }
 }

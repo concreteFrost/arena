@@ -31,7 +31,7 @@ public class EnemyChaseBehaviour : StateMachineBehaviour
         else
         {
             animator.SetBool("isInAttackRange", true);
-           
+            //animator.SetBool("isCovering", true);
         }
     }
 

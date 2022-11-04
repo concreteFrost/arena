@@ -5,6 +5,16 @@ TagManager:
   serializedVersion: 2
   tags:
   - Shootable
+  - Combat Camera
+  - DataBase
+  - CinemachineTarget
+  - Character Bottom
+  - Character Shoes
+  - Character Top
+  - Player Spine Rotate Target
+  - hatPlacer
+  - Weapon Holder
+  - Cover
   layers:
   - Default
   - TransparentFX
@@ -17,7 +27,7 @@ TagManager:
   - Lighting
   - Ground
   - Postprocessing
-  - 
+  - CoverPoint
   - 
   - 
   - 
