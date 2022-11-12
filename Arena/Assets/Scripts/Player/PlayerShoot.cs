@@ -101,15 +101,13 @@ public class PlayerShoot : MonoBehaviour
                 GameObject hitEffect = Instantiate(weapon.hitEffect, hit.point, Quaternion.LookRotation(hit.normal));
                 Destroy(hitEffect, 1f);
             }
-            weapon.muzzleFlash.Play();
-            source.PlayOneShot(weapon.shotSound);
-            StartCoroutine(Recoil(weapon));
 
+            StartCoroutine(Recoil(weapon));
+            
             weapon.bulletsInMagazine--;
             
         }
-        else
-            source.PlayOneShot(weapon.noAmmo);
+        weapon.WeaponShoot();
 
         StartCoroutine(CoolDown(weapon.coolDown));
 

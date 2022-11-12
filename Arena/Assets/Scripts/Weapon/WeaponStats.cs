@@ -21,12 +21,16 @@ public class WeaponStats : MonoBehaviour, IInteractable
   
     public ParticleSystem muzzleFlash;
     public GameObject hitEffect;
+    AudioSource source;
     public AudioClip shotSound;
     public AudioClip noAmmo;
     public ScriptableWeapon s_weapon;
 
+    public Transform shootingPoint;
+
     private void Start()
     {
+        source = GetComponent<AudioSource>();
         id = s_weapon.id;
         weaponName = s_weapon.weaponName;   
         weaponDamage = s_weapon.weaponDamage;
@@ -43,6 +47,22 @@ public class WeaponStats : MonoBehaviour, IInteractable
 
     public void Interact()
     {
+
+    }
+
+    public void WeaponShoot()
+    {
+        if (bulletsInMagazine > 0)
+        {
+            muzzleFlash.Play();
+            source.PlayOneShot(shotSound);
+
+        }
+        else
+        {
+            source.PlayOneShot(noAmmo);
+            Debug.Log("out of ammo");
+        }
 
     }
 

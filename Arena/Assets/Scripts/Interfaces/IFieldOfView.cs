@@ -1,0 +1,35 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public abstract class FieldOfView : MonoBehaviour
+{
+    public virtual bool CanSeePlayer(Transform myPos, float maxAngle, float lookRaduis, VariablesSO pl_pos)
+    {
+        Vector3 targetDir = pl_pos.pos - myPos.position;
+        var dist = Vector3.Distance(pl_pos.pos, myPos.position);
+        float angleToPlayer = (Vector3.Angle(targetDir, myPos.forward));
+
+        if (angleToPlayer >= -maxAngle && angleToPlayer <= maxAngle && dist < lookRaduis)
+        {
+            RaycastHit hit;
+            var targetCenter = new Vector3(targetDir.x, 0.5f, targetDir.z);
+            Debug.DrawRay(transform.position,targetCenter);
+
+            if (Physics.Raycast(transform.position, targetCenter, out hit))
+            {
+                if (hit.collider.CompareTag("Player"))
+                {
+                    return true;
+
+                }
+
+            }
+            
+        }
+
+        return false;
+
+    }
+
+}
