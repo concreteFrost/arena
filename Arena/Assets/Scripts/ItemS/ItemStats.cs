@@ -10,7 +10,7 @@ public enum BoosterType
 }
 public class ItemStats : MonoBehaviour
 {
-    public string i_name;
-    public float i_price;
+    public string name;
+    public float price;
     public BoosterType boosterType;
 }

@@ -1,35 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
 
 public class PlayerInteract : MonoBehaviour
 {
+    Inventory inventory;
+
+    private void Start()
+    {
+        inventory = GetComponent<Inventory>();
+    }
+
+    public void AddToHand(GameObject obj)
+    {
+
+        obj.transform.SetParent(inventory.weaponHolder);
+        obj.transform.position = inventory.weaponHolder.transform.position;
+        obj.transform.rotation = inventory.weaponHolder.transform.rotation;
+
+    }
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.GetComponent<IInteractable>() != null)
+        if (other.gameObject.GetComponent<IInteractable>() != null)
         {
-            var inventory = gameObject.GetComponent<Inventory>();
-           
-            var  c = inventory.weapons.Any((x)=>x.GetComponent<WeaponStats>().id == other.GetComponent<WeaponStats>().id);
-            
-            if (!c)
-            {    
-                inventory.AddItem(other.gameObject);
-                other.gameObject.SetActive(false);
-                foreach (Transform t in transform.GetComponentsInChildren<Transform>())
-                {
-                    if (t.CompareTag("Weapon Holder")){
-                        other.transform.SetParent(t);
-                        other.transform.position = t.transform.position;
-                        other.transform.rotation = t.transform.rotation;
-                    }
-                       
-                }
-
-
-            }
+            other.gameObject.GetComponent<IInteractable>().Interact(gameObject);
         }
     }
 }

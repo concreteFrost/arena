@@ -7,9 +7,9 @@ public class Enemy : MonoBehaviour
 {
     public EnemySO enemySO;
 
-    public string e_name;
-    public float e_health;
-    public float e_speed;
+    public string name;
+    public float health;
+    public float speed;
 
     public GameObject e_weapon;
     public VariablesSO pl_pos;
@@ -19,7 +19,6 @@ public class Enemy : MonoBehaviour
 
     public Transform weaponHolder;
 
-    CapsuleCollider[] damageable;
     Rigidbody[] rBodies;
 
     public bool isDead;
@@ -28,9 +27,9 @@ public class Enemy : MonoBehaviour
 
     private void Awake()
     {
-        e_name = enemySO.name;
-        e_health = enemySO.e_health;
-        e_speed = enemySO.e_speed;
+        name = enemySO.name;
+        health = enemySO.e_health;
+        speed = enemySO.e_speed;
         e_weapon = Instantiate(enemySO.e_weapon, weaponHolder.position, weaponHolder.rotation);
         e_weapon.transform.parent = weaponHolder;
 
@@ -41,17 +40,11 @@ public class Enemy : MonoBehaviour
         anim = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
 
-        damageable = GetComponentsInChildren<CapsuleCollider>();
         rBodies = GetComponentsInChildren<Rigidbody>();
 
         foreach(var r in rBodies)
         {
             r.isKinematic = true;
-        }
-
-        foreach(var c in damageable)
-        {
-            c.GetComponent<EnemyDamagable>().health = this;
         }
 
     }
@@ -60,9 +53,9 @@ public class Enemy : MonoBehaviour
     {
         LookAtTarget();
 
-        if(e_health <= 0)
+        if(health <= 0)
         {
-            e_health = 0;
+            health = 0;
             Died();
         }
 
@@ -88,6 +81,12 @@ public class Enemy : MonoBehaviour
         agent.enabled = false;
         isDead = true;
         
+    }
+
+    public void TakeDamage(int damageAmount)
+    {
+        health -= damageAmount;
+        Debug.Log(health);
     }
 
 }

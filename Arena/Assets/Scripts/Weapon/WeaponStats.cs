@@ -1,9 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-
-
+using System.Linq;
 
 public class WeaponStats : MonoBehaviour, IInteractable
 {
@@ -20,7 +18,8 @@ public class WeaponStats : MonoBehaviour, IInteractable
     public TypeOfWeapon type;
   
     public ParticleSystem muzzleFlash;
-    public GameObject hitEffect;
+    public GameObject[] hitEffect;
+ 
     AudioSource source;
     public AudioClip shotSound;
     public AudioClip noAmmo;
@@ -45,9 +44,16 @@ public class WeaponStats : MonoBehaviour, IInteractable
         bulletsInMagazine = bulletCapacity;
     }
 
-    public void Interact()
+    public void Interact(GameObject other)
     {
+        var inventory = other.GetComponent<Inventory>();
+        var c = inventory.weapons.Any((x) => x.GetComponent<WeaponStats>().id == GetComponent<WeaponStats>().id);
 
+        if (!c)
+        {
+            inventory.AddItem(gameObject);
+            other.GetComponent<PlayerInteract>().AddToHand(gameObject);
+        }
     }
 
     public void WeaponShoot()
@@ -56,12 +62,11 @@ public class WeaponStats : MonoBehaviour, IInteractable
         {
             muzzleFlash.Play();
             source.PlayOneShot(shotSound);
-
         }
         else
         {
             source.PlayOneShot(noAmmo);
-            Debug.Log("out of ammo");
+
         }
 
     }

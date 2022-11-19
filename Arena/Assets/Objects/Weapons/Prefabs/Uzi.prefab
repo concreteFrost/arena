@@ -199,10 +199,12 @@ MonoBehaviour:
   weaponImage: {fileID: -1773907331, guid: dcfc4ab82fa6f4747ae6e72b27d7bcb5, type: 3}
   type: 1
   muzzleFlash: {fileID: 4394558966198962574}
-  hitEffect: {fileID: 3892717819945924118, guid: 502adf09550a112429a59043015ebca1,
-    type: 3}
+  hitEffect:
+  - {fileID: 3892717819945924118, guid: 502adf09550a112429a59043015ebca1, type: 3}
+  - {fileID: 3892717819945924118, guid: 560784a6a2f0768409886c54f722ffde, type: 3}
+  - {fileID: 0}
   shotSound: {fileID: 8300000, guid: b5580429fb88ab3458987416611053eb, type: 3}
-  noAmmo: {fileID: 0}
+  noAmmo: {fileID: 8300000, guid: b1dfe04fa0b17524688a78be68957b32, type: 3}
   s_weapon: {fileID: 11400000, guid: 1114eb514b7886441a1e1cb324f460d3, type: 2}
   shootingPoint: {fileID: 6825398784481046873}
 --- !u!65 &601520612730614341

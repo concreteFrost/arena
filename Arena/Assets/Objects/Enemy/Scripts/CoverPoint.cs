@@ -2,26 +2,36 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CoverPoint :  FieldOfView
+public class CoverPoint : MonoBehaviour
 {
    
-    
-    float maxFOVAngle = 100;
+    float maxFOVAngle = 180;
     public float lookRadius = 1000;
     public bool canSeePlayer;
     public VariablesSO pl_pos;
+    FieldOfView fov;
 
-    public override bool CanSeePlayer(Transform myPos, float maxAngle, float lookRaduis, VariablesSO pl_pos)
+    private void Start()
     {
-        return base.CanSeePlayer(myPos, maxAngle, lookRaduis, pl_pos);
+        fov = GetComponent<FieldOfView>();
     }
 
 
+    public void Update()
+    {
+        canSeePlayer = fov.CanSeePlayer(transform, maxFOVAngle, lookRadius, pl_pos);
+
+        if (canSeePlayer)
+        {
+            gameObject.GetComponent<MeshRenderer>().material.color = Color.red;
+        }
+
+        else
+        {
+            gameObject.GetComponent<MeshRenderer>().material.color = Color.green;
+        }
+    }
 
     // Update is called once per frame
-    void Update()
-    {
-        canSeePlayer = CanSeePlayer(transform, maxFOVAngle, lookRadius, pl_pos);
-        
-    }
+
 }

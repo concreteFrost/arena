@@ -12,11 +12,10 @@ public class Inventory : MonoBehaviour
     public Text bulletAmountText;
     public GameObject weaponInstance;
     public int _weaponIndex;
-    Transform weaponHolder;
+    public Transform weaponHolder;
     DataBaseManager db;
     PlayerShoot plShoot;
     public PlayerStatsSO pl_statsSO;
-
     public GameObject hat;
     public int weaponIndex
     {
@@ -42,9 +41,9 @@ public class Inventory : MonoBehaviour
         GetItemOnStart();
         GetWeaponOnStart();
         GetWeaponInfo();
-      
         //Keep this variable to prevent change weapon when player is aiming
         plShoot = GetComponent<PlayerShoot>();
+        plShoot.weapon = weaponInstance.GetComponent<WeaponStats>();
 
     }
 
@@ -73,11 +72,13 @@ public class Inventory : MonoBehaviour
                 weapons[i].SetActive(true);
                 weaponInstance = weapons[i];
                 weaponInstance.GetComponent<BoxCollider>().enabled = false;
+                plShoot.weapon = weaponInstance.GetComponent<WeaponStats>();
             }
                 
             else
                 weapons[i].SetActive(false);
         }
+      
         GetWeaponInfo();
     }
 

@@ -3,18 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class PlayerShoot : MonoBehaviour
+public class PlayerShoot : Shoot
 {
     Animator animator;
-    public bool isAiming;
-    public bool isReloading;
+  
     public GameObject cinemachine;
-    public bool canShoot = true;
     public GameObject[] cams;
-    public Camera combatCamera;
-    AudioSource source;
-    float coolDown;
-
+    public GameObject combatCamera;
+    public WeaponStats weapon;
     //Recoil
     [Range(0, 1)]
     public float recoilX;
@@ -27,18 +23,15 @@ public class PlayerShoot : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         cams[1].SetActive(false);
-        source = GetComponent<AudioSource>();
-
     }
 
     // Update is called once per frame
     void LateUpdate()
     {
-        var weapon = GetComponent<Inventory>().weaponInstance.GetComponent<WeaponStats>();
+        CameraControl();
         if (Input.GetMouseButton(1))
         {
-            isAiming = true;
-            CameraControl();
+            isAiming = true;  
             gameObject.transform.Rotate(0, Input.GetAxis("Mouse X") * 220 * Time.deltaTime, 0);
             
             if (Input.GetMouseButton(0) && canShoot && !isReloading)
@@ -50,7 +43,7 @@ public class PlayerShoot : MonoBehaviour
         if (Input.GetMouseButtonUp(1))
         {
             isAiming = false;
-            CameraControl();
+            
         }
         if (Input.GetKeyDown(KeyCode.R))
         {
@@ -90,47 +83,21 @@ public class PlayerShoot : MonoBehaviour
     void Shoot(WeaponStats weapon)
     {
 
+        PerformShoot(weapon, combatCamera.transform.position, combatCamera.transform.forward);
+
         if (weapon.bulletsInMagazine > 0)
-        {     
-            RaycastHit hit;
-            if (Physics.Raycast(combatCamera.transform.position, combatCamera.transform.forward, out hit, weapon.shootingRange))
-            {
-                hit.transform.GetComponent<IDamagable>()?.TakeDamage(weapon.weaponDamage);
-
-
-                GameObject hitEffect = Instantiate(weapon.hitEffect, hit.point, Quaternion.LookRotation(hit.normal));
-                Destroy(hitEffect, 1f);
-            }
+        {
+           
 
             StartCoroutine(Recoil(weapon));
             
             weapon.bulletsInMagazine--;
             
         }
-        weapon.WeaponShoot();
 
-        StartCoroutine(CoolDown(weapon.coolDown));
 
     }
 
-    void Reload(WeaponStats w)
-    {
-        if(w.bulletCount >=0 && w.bulletsInMagazine != w.bulletCapacity)
-        {
-            int amount = w.bulletCapacity - w.bulletsInMagazine;
-            amount = (w.bulletCount - amount) >= 0 ? amount : w.bulletCount;
-            w.bulletsInMagazine += amount;
-            w.bulletCount -= amount;
-            
-        }
-    }
-
-    IEnumerator CoolDown(float s)
-    {
-        canShoot = false;
-        yield return new WaitForSeconds(s);
-        canShoot = true;
-    }
 
     IEnumerator Recoil(WeaponStats weapon)
     {
@@ -145,9 +112,5 @@ public class PlayerShoot : MonoBehaviour
     {
         isReloading = false;
     }
-
-
-
-
 
 }

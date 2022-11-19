@@ -297,8 +297,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2479ef29db3027143b8c9792fa82c5b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: {fileID: 0}
   damageType: 0
+  healthEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 100108747832524319}
+        m_TargetAssemblyTypeName: Enemy, Assembly-CSharp
+        m_MethodName: TakeDamage
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!136 &1246669281106921596
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -455,8 +469,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2479ef29db3027143b8c9792fa82c5b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: {fileID: 0}
   damageType: 0
+  healthEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 100108747832524319}
+        m_TargetAssemblyTypeName: Enemy, Assembly-CSharp
+        m_MethodName: TakeDamage
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!136 &1364237309578533570
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1121,8 +1149,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2479ef29db3027143b8c9792fa82c5b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: {fileID: 0}
   damageType: 0
+  healthEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 100108747832524319}
+        m_TargetAssemblyTypeName: Enemy, Assembly-CSharp
+        m_MethodName: TakeDamage
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!136 &4081793095098866205
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1550,8 +1592,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2479ef29db3027143b8c9792fa82c5b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: {fileID: 0}
   damageType: 0
+  healthEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 100108747832524319}
+        m_TargetAssemblyTypeName: Enemy, Assembly-CSharp
+        m_MethodName: TakeDamage
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!136 &2016368364289022452
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1678,8 +1734,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2479ef29db3027143b8c9792fa82c5b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: {fileID: 0}
   damageType: 0
+  healthEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 100108747832524319}
+        m_TargetAssemblyTypeName: Enemy, Assembly-CSharp
+        m_MethodName: TakeDamage
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!136 &5537036732017536747
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2058,8 +2128,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2479ef29db3027143b8c9792fa82c5b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: {fileID: 0}
   damageType: 0
+  healthEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 100108747832524319}
+        m_TargetAssemblyTypeName: Enemy, Assembly-CSharp
+        m_MethodName: TakeDamage
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!136 &8569890530733512184
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2149,6 +2233,7 @@ GameObject:
   - component: {fileID: 100108747832524319}
   - component: {fileID: 100108747832524318}
   - component: {fileID: 100108747832524312}
+  - component: {fileID: 1510806220}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -2163,7 +2248,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6685686109671456477}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 10.24}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2181,7 +2266,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6685686109671456477}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: b66e11f53b31e07448e7de7b52a8630d, type: 3}
   m_Controller: {fileID: 9100000, guid: d29c2343dca4a8444b002ac91adb9b9d, type: 2}
   m_CullingMode: 1
@@ -2206,9 +2291,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemySO: {fileID: 11400000, guid: 7f2e53b3c0b5715449e8e475a4fe9429, type: 2}
-  e_name: 
-  e_health: 0
-  e_speed: 0
+  name: 
+  health: 0
+  speed: 0
   e_weapon: {fileID: 0}
   pl_pos: {fileID: 11400000, guid: 6a7a84811f6c838408efdbbaeac6cd4d, type: 2}
   weaponHolder: {fileID: 5767208735249920352}
@@ -2247,11 +2332,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbe49781069ccbd46bd4c440452381e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isAiming: 0
+  isReloading: 0
   canShoot: 1
   waitingTillNextShoot: 0
   bulletsToShoot: 0
   canSeePlayer: 0
   lookRadius: 300
+--- !u!114 &1510806220
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6685686109671456477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3421e7997b88725418c22e18d73fe3db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6934782994532871954
 GameObject:
   m_ObjectHideFlags: 0
@@ -2408,8 +2507,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2479ef29db3027143b8c9792fa82c5b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: {fileID: 0}
   damageType: 0
+  healthEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 100108747832524319}
+        m_TargetAssemblyTypeName: Enemy, Assembly-CSharp
+        m_MethodName: TakeDamage
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &7296864466979886724
 GameObject:
   m_ObjectHideFlags: 0
@@ -2620,8 +2733,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2479ef29db3027143b8c9792fa82c5b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: {fileID: 0}
   damageType: 0
+  healthEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 100108747832524319}
+        m_TargetAssemblyTypeName: Enemy, Assembly-CSharp
+        m_MethodName: TakeDamage
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!136 &7631310236375175558
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2746,8 +2873,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2479ef29db3027143b8c9792fa82c5b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: {fileID: 0}
   damageType: 1
+  healthEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 100108747832524319}
+        m_TargetAssemblyTypeName: Enemy, Assembly-CSharp
+        m_MethodName: TakeDamage
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!54 &4226572999612268968
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2904,8 +3045,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2479ef29db3027143b8c9792fa82c5b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: {fileID: 0}
   damageType: 0
+  healthEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 100108747832524319}
+        m_TargetAssemblyTypeName: Enemy, Assembly-CSharp
+        m_MethodName: TakeDamage
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!136 &4476856197989367936
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -3098,8 +3253,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2479ef29db3027143b8c9792fa82c5b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: {fileID: 0}
   damageType: 0
+  healthEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 100108747832524319}
+        m_TargetAssemblyTypeName: Enemy, Assembly-CSharp
+        m_MethodName: TakeDamage
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!136 &3096995136358355533
 CapsuleCollider:
   m_ObjectHideFlags: 0

@@ -23,8 +23,8 @@ public class EnemyChaseBehaviour : StateMachineBehaviour
     {
         float dist = Vector3.Distance(agent.transform.position, stats.pl_pos.pos);
 
-        agent.speed = stats.e_speed;
-        if (dist > 10)
+        agent.speed = stats.speed;
+        if (dist > 30)
         {
             agent.SetDestination(stats.pl_pos.pos);
         }

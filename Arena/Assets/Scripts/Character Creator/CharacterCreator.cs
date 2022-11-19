@@ -109,7 +109,7 @@ public class CharacterCreator : MonoBehaviour
                     break;
             }
             pl_statsSo.price = pl_statsSo.minPrice;
-            pl_statsSo.price += i.GetComponent<ItemStats>().i_price;
+            pl_statsSo.price += i.GetComponent<ItemStats>().price;
             UpdateUI();
         });
 

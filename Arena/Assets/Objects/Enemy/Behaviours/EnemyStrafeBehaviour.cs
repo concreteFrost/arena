@@ -33,7 +33,7 @@ public class EnemyStrafeBehaviour : StateMachineBehaviour
         float dist = Vector3.Distance(agent.transform.position, stats.pl_pos.pos);
 
         //Used to Avoid Strafe and do player chasing
-        if (dist > 20)
+        if (dist > 30)
         {
             animator.SetBool("isInAttackRange", false);
           
@@ -47,25 +47,11 @@ public class EnemyStrafeBehaviour : StateMachineBehaviour
         else
         {
             animator.SetBool("isCovering", true);
-            animator.SetBool("isAiming",false);
             animator.SetBool("isInAttackRange", false);
         }
 
-        if (timeBeforeChangeDirection <= 0)
-        {
-            StrafeDirection(strafeDirections[Random.Range(0, strafeDirections.Length)]);
-
-            timeBeforeChangeDirection = Random.Range(3, 5);
-        }
-        else
-        {
-            timeBeforeChangeDirection -= Time.deltaTime;
-        }
-
-        if (agent.remainingDistance < 1)
-        {
-            StrafeDirection(strafeDirections[Random.Range(0, strafeDirections.Length)]);
-        }
+        StrafeCalc();
+      
 
     }
 
@@ -87,6 +73,25 @@ public class EnemyStrafeBehaviour : StateMachineBehaviour
     //    // Implement code that sets up animation IK (inverse kinematics)
     //}
 
+
+    void StrafeCalc()
+    {
+        if (timeBeforeChangeDirection <= 0)
+        {
+            StrafeDirection(strafeDirections[Random.Range(0, strafeDirections.Length)]);
+
+            timeBeforeChangeDirection = Random.Range(3, 5);
+        }
+        else
+        {
+            timeBeforeChangeDirection -= Time.deltaTime;
+        }
+
+        if (agent.remainingDistance < 1)
+        {
+            StrafeDirection(strafeDirections[Random.Range(0, strafeDirections.Length)]);
+        }
+    }
     void StrafeDirection(Vector3 dir)
     {
         agent.speed = 3;
