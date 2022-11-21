@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 0
   weaponName: Benelli
-  weaponDamage: 20
+  weaponDamage: 13
   coolDown: 1
   recoilPower: 3
   weaponImage: {fileID: 983232618, guid: dcfc4ab82fa6f4747ae6e72b27d7bcb5, type: 3}
   type: 0
-  shootingRange: 500
+  shootingRange: 100
   capacity: 6
   shotSound: {fileID: 8300000, guid: eba2b274dc42f634ba051a9107b6d082, type: 3}
   noAmmo: {fileID: 8300000, guid: b1dfe04fa0b17524688a78be68957b32, type: 3}

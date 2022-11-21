@@ -25,7 +25,7 @@ MonoBehaviour:
   availableCharacters:
   - {fileID: 4692441660320891829, guid: 63524c422b71f474aaa0b91fb999782a, type: 3}
   - {fileID: 5739373894851189205, guid: de39fa2beb76a0d4dbe1bb26eeefa8ce, type: 3}
-  character: {fileID: 5739373894851189205, guid: de39fa2beb76a0d4dbe1bb26eeefa8ce,
+  character: {fileID: 4692441660320891829, guid: 63524c422b71f474aaa0b91fb999782a,
     type: 3}
   additionalItem: {fileID: 0}
   starterWeapon: {fileID: 1487774384131766, guid: ee329c3cd08e58645834d20702d7f6c6,

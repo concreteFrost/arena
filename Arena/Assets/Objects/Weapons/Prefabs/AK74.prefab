@@ -274,7 +274,7 @@ MonoBehaviour:
   weaponDamage: 28
   shootingRange: 500
   coolDown: 0
-  bulletCount: 25
+  bulletCount: 100
   bulletsInMagazine: 0
   bulletCapacity: 0
   recoilPower: 0

@@ -9,11 +9,12 @@ public class EnemyTakeCoverBehaviour : StateMachineBehaviour
 
     public float sphereRadius;
     public float maxDistance;
-    public GameObject closest;
     float recoverWaitingTime;
+    Enemy enemy;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        enemy = animator.GetComponent<Enemy>();
         agent = animator.GetComponent<NavMeshAgent>();
         recoverWaitingTime = Random.Range(2, 10);
     }
@@ -23,29 +24,26 @@ public class EnemyTakeCoverBehaviour : StateMachineBehaviour
     {
         FindClosestCover(animator);
         VisibleInCover(animator);
-        
-        if(recoverWaitingTime > 0)
+
+        if (recoverWaitingTime > 0)
         {
-            recoverWaitingTime-=Time.deltaTime;
+            recoverWaitingTime -= Time.deltaTime;
         }
 
-        if(recoverWaitingTime <= 0)
+        if (recoverWaitingTime <= 0)
         {
             SwitchToAttack(animator);
         }
-       
+
 
     }
 
     public void VisibleInCover(Animator animator)
     {
-        if (closest)
+
+        if (agent.isStopped && enemy.canSeePlayer==true)
         {
-            if (closest.GetComponent<CoverPoint>().canSeePlayer == true)
-            {
-                SwitchToAttack(animator);
-               
-            }
+            SwitchToAttack(animator);
         }
     }
 
@@ -62,7 +60,7 @@ public class EnemyTakeCoverBehaviour : StateMachineBehaviour
         GameObject[] covers;
         covers = GameObject.FindGameObjectsWithTag("Cover");
         float distance = Mathf.Infinity;
-      
+
         foreach (GameObject cover in covers)
         {
             Vector3 diff = cover.transform.position - anim.transform.position;
@@ -70,18 +68,18 @@ public class EnemyTakeCoverBehaviour : StateMachineBehaviour
 
             if (curDistance < distance && cover.GetComponent<CoverPoint>().canSeePlayer == false)
             {
-                closest = cover;
+               
                 distance = curDistance;
                 agent.SetDestination(cover.transform.position);
 
-                float distToCover = agent.remainingDistance; 
+                float distToCover = agent.remainingDistance;
                 if (distToCover != Mathf.Infinity && agent.pathStatus == NavMeshPathStatus.PathComplete && agent.remainingDistance < 1)
                 {
                     agent.Stop();
                 }
             }
         }
-        
+
     }
 
 

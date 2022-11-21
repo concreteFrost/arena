@@ -2832,6 +2832,7 @@ GameObject:
   - component: {fileID: 4119327058933667532}
   - component: {fileID: 4119327058933667530}
   - component: {fileID: 622407417}
+  - component: {fileID: 984029488}
   m_Layer: 0
   m_Name: Enemy 2
   m_TagString: Untagged
@@ -2889,6 +2890,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemySO: {fileID: 11400000, guid: be65479fd3415ca47ae2ff8c8d4626b7, type: 2}
+  canSeePlayer: 0
+  lookRadius: 300
   name: 
   health: 0
   speed: 0
@@ -2896,6 +2899,7 @@ MonoBehaviour:
   pl_pos: {fileID: 11400000, guid: 6a7a84811f6c838408efdbbaeac6cd4d, type: 2}
   weaponHolder: {fileID: 7512109230502697394}
   isDead: 0
+  playerDead: {fileID: 0}
 --- !u!195 &4119327058933667532
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2935,8 +2939,6 @@ MonoBehaviour:
   canShoot: 1
   waitingTillNextShoot: 0
   bulletsToShoot: 0
-  canSeePlayer: 0
-  lookRadius: 300
 --- !u!114 &622407417
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2949,6 +2951,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3421e7997b88725418c22e18d73fe3db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &984029488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7242129438423963151}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 116d4bc892e95674a8e07afbaa130896, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _event: {fileID: 11400000, guid: 0e976c2922c90284ca856e87c9488a26, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4119327058933667533}
+        m_TargetAssemblyTypeName: Enemy, Assembly-CSharp
+        m_MethodName: PlayerDead
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &7512109230502697397
 GameObject:
   m_ObjectHideFlags: 0

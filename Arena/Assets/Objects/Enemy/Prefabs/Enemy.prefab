@@ -2234,13 +2234,14 @@ GameObject:
   - component: {fileID: 100108747832524318}
   - component: {fileID: 100108747832524312}
   - component: {fileID: 1510806220}
+  - component: {fileID: 990500440}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6306029814898402407
 Transform:
   m_ObjectHideFlags: 0
@@ -2291,6 +2292,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemySO: {fileID: 11400000, guid: 7f2e53b3c0b5715449e8e475a4fe9429, type: 2}
+  canSeePlayer: 0
+  lookRadius: 300
   name: 
   health: 0
   speed: 0
@@ -2298,6 +2301,7 @@ MonoBehaviour:
   pl_pos: {fileID: 11400000, guid: 6a7a84811f6c838408efdbbaeac6cd4d, type: 2}
   weaponHolder: {fileID: 5767208735249920352}
   isDead: 0
+  playerDead: {fileID: 0}
 --- !u!195 &100108747832524318
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2337,8 +2341,6 @@ MonoBehaviour:
   canShoot: 1
   waitingTillNextShoot: 0
   bulletsToShoot: 0
-  canSeePlayer: 0
-  lookRadius: 300
 --- !u!114 &1510806220
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2351,6 +2353,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3421e7997b88725418c22e18d73fe3db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &990500440
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6685686109671456477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 116d4bc892e95674a8e07afbaa130896, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _event: {fileID: 11400000, guid: 0e976c2922c90284ca856e87c9488a26, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 100108747832524319}
+        m_TargetAssemblyTypeName: Enemy, Assembly-CSharp
+        m_MethodName: PlayerDead
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &6934782994532871954
 GameObject:
   m_ObjectHideFlags: 0

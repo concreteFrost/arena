@@ -9,10 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7429973335e8f104aa2c3bbf2702441a, type: 3}
-  m_Name: Enemy 1
+  m_Script: {fileID: 11500000, guid: 4e84a0a61db6cee4faececac088353e0, type: 3}
+  m_Name: Player Dead
   m_EditorClassIdentifier: 
-  e_name: Dark Ninja
-  e_health: 50
-  e_speed: 7
-  e_weapon: {fileID: 1487774384131766, guid: ee329c3cd08e58645834d20702d7f6c6, type: 3}

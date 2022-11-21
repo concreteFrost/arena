@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 1
   weaponName: Uzi
-  weaponDamage: 5
+  weaponDamage: 4
   coolDown: 0.1
   recoilPower: 0.1
   weaponImage: {fileID: -1773907331, guid: dcfc4ab82fa6f4747ae6e72b27d7bcb5, type: 3}
   type: 0
-  shootingRange: 800
+  shootingRange: 170
   capacity: 50
   shotSound: {fileID: 8300000, guid: b5580429fb88ab3458987416611053eb, type: 3}
   noAmmo: {fileID: 8300000, guid: b1dfe04fa0b17524688a78be68957b32, type: 3}

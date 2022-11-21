@@ -5,7 +5,7 @@ using UnityEngine;
 public class CoverPoint : MonoBehaviour
 {
    
-    float maxFOVAngle = 180;
+    float maxFOVAngle = 360;
     public float lookRadius = 1000;
     public bool canSeePlayer;
     public VariablesSO pl_pos;
@@ -19,7 +19,7 @@ public class CoverPoint : MonoBehaviour
 
     public void Update()
     {
-        canSeePlayer = fov.CanSeePlayer(transform, maxFOVAngle, lookRadius, pl_pos);
+        canSeePlayer = fov.CanSeePlayer(transform, maxFOVAngle, lookRadius, pl_pos, "Player");
 
         if (canSeePlayer)
         {

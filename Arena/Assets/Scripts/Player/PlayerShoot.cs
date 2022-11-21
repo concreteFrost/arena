@@ -11,6 +11,7 @@ public class PlayerShoot : Shoot
     public GameObject[] cams;
     public GameObject combatCamera;
     public WeaponStats weapon;
+    bool playerDead = false;
     //Recoil
     [Range(0, 1)]
     public float recoilX;
@@ -28,35 +29,47 @@ public class PlayerShoot : Shoot
     // Update is called once per frame
     void LateUpdate()
     {
-        CameraControl();
+        if (!playerDead)
+        {
+            CameraControl();
+            AimingLogic();
+            ReloadingLogic();
+            AnimationControl();
+        }
+    }
+
+    void ReloadingLogic()
+    {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+
+            if (weapon.bulletsInMagazine != weapon.bulletCapacity)
+            {
+                isReloading = true;
+                Reload(weapon);
+            }
+
+        }
+    }
+
+    void AimingLogic()
+    {
         if (Input.GetMouseButton(1))
         {
-            isAiming = true;  
+            isAiming = true;
             gameObject.transform.Rotate(0, Input.GetAxis("Mouse X") * 220 * Time.deltaTime, 0);
-            
+
             if (Input.GetMouseButton(0) && canShoot && !isReloading)
             {
 
-                Shoot(weapon);     
+                Shoot(weapon);
             }
         }
         if (Input.GetMouseButtonUp(1))
         {
             isAiming = false;
-            
-        }
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-           
-            if(weapon.bulletsInMagazine != weapon.bulletCapacity)
-            {
-                isReloading = true;
-                Reload(weapon);
-            }
-           
-        }
 
-        AnimationControl();
+        }
     }
 
     void CameraControl()
@@ -83,12 +96,11 @@ public class PlayerShoot : Shoot
     void Shoot(WeaponStats weapon)
     {
 
-        PerformShoot(weapon, combatCamera.transform.position, combatCamera.transform.forward);
+        PerformShoot(weapon, weapon.shootingPoint.position, combatCamera.transform.forward);
 
         if (weapon.bulletsInMagazine > 0)
         {
            
-
             StartCoroutine(Recoil(weapon));
             
             weapon.bulletsInMagazine--;
@@ -96,6 +108,13 @@ public class PlayerShoot : Shoot
         }
 
 
+    }
+
+    public void SetDefaultCamera()
+    {
+       playerDead = true;
+        cams[1].SetActive(false);
+        cams[0].SetActive(true);
     }
 
 

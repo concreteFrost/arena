@@ -8,7 +8,7 @@ public class EnemyStrafeBehaviour : StateMachineBehaviour
     NavMeshAgent agent;
     Enemy stats;
     float timeBeforeChangeDirection;
-    Vector3[] strafeDirections;
+    Vector3[] strafeDirections = new[] { Vector3.up, Vector3.down };
 
     float waitTillRunToCover;
 
@@ -18,10 +18,8 @@ public class EnemyStrafeBehaviour : StateMachineBehaviour
         agent = animator.GetComponent<NavMeshAgent>();
         stats = animator.GetComponent<Enemy>();
         animator.SetBool("isAiming", true);
-        strafeDirections = new[] { Vector3.up, Vector3.down };
 
         StrafeDirection(strafeDirections[Random.Range(0, strafeDirections.Length - 1)]);
-
         timeBeforeChangeDirection = Random.Range(2, 5);
         waitTillRunToCover = Random.Range(5, 7);
     }
@@ -48,6 +46,12 @@ public class EnemyStrafeBehaviour : StateMachineBehaviour
         {
             animator.SetBool("isCovering", true);
             animator.SetBool("isInAttackRange", false);
+        }
+
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            waitTillRunToCover = -1;
+            animator.SetBool("isCovering", true);
         }
 
         StrafeCalc();
@@ -94,7 +98,7 @@ public class EnemyStrafeBehaviour : StateMachineBehaviour
     }
     void StrafeDirection(Vector3 dir)
     {
-        agent.speed = 3;
+        agent.speed = 3.7f;
 
         var dist = agent.transform.position - stats.pl_pos.pos;
       

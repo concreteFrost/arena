@@ -1,19 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+
 
 public class Inventory : MonoBehaviour
 {
     public List<GameObject> weapons = new List<GameObject>();
     public List<GameObject> hats = new List<GameObject>();
-    public Image weaponIcon;
-    public Text weaponText;
-    public Text bulletAmountText;
+    
     public GameObject weaponInstance;
     public int _weaponIndex;
     public Transform weaponHolder;
     DataBaseManager db;
+
+    PlayerUI ui;
     PlayerShoot plShoot;
     public PlayerStatsSO pl_statsSO;
     public GameObject hat;
@@ -38,6 +38,7 @@ public class Inventory : MonoBehaviour
     private void Start()
     {
         db = GameObject.FindGameObjectWithTag("DataBase").GetComponent<DataBaseManager>();
+        ui = GetComponent<PlayerUI>();
         GetItemOnStart();
         GetWeaponOnStart();
         GetWeaponInfo();
@@ -84,10 +85,11 @@ public class Inventory : MonoBehaviour
 
     void GetWeaponInfo()
     {
-        weaponIcon.sprite = weaponInstance.GetComponent<WeaponStats>().weaponImage;
-        weaponText.text = weaponInstance.GetComponent<WeaponStats>().weaponName;
+     
         var bullets = weaponInstance.GetComponent<WeaponStats>();
-        bulletAmountText.text = bullets.bulletsInMagazine.ToString() + '/' + bullets.bulletCount.ToString();
+       ui.bulletAmountText.text = bullets.bulletsInMagazine.ToString() + '/' + bullets.bulletCount.ToString();
+        ui.weaponIcon.sprite = weaponInstance.GetComponent<WeaponStats>().weaponImage;
+        ui.weaponText.text = weaponInstance.GetComponent<WeaponStats>().weaponName;
     }
 
     void GetWeaponOnStart()

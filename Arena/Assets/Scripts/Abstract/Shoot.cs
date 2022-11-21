@@ -9,7 +9,7 @@ public abstract class Shoot : MonoBehaviour
     public bool canShoot;
     public virtual void PerformShoot(WeaponStats weaponStats, Vector3 shootPoint,Vector3 direction)
     {
-    
+   
         RaycastHit hit;
         if (Physics.Raycast(shootPoint, direction, out hit, weaponStats.shootingRange))
         {

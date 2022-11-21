@@ -4,54 +4,32 @@ using UnityEngine;
 
 public class EnemyShoot : Shoot
 {
-    
-    
     public bool waitingTillNextShoot;
     public int bulletsToShoot;
 
     WeaponStats weaponStats;
     Enemy enemy;
-    FieldOfView fov;
-
-    //Field of view
-    public bool canSeePlayer;
-
-    float maxFOVAngle = 100;
-    public float lookRadius = 300;
-
 
     // Start is called before the first frame update
     void Start()
     {
-        fov = GetComponent<FieldOfView>();
+
         weaponStats = GetComponent<Enemy>().e_weapon.GetComponent<WeaponStats>();
         enemy = GetComponent<Enemy>();
-       
         bulletsToShoot = Random.Range(1, 7);
-        waitingTillNextShoot= false;
+        waitingTillNextShoot = false;
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        canSeePlayer = fov.CanSeePlayer(transform, maxFOVAngle, lookRadius, enemy.pl_pos);
-
-        if (canSeePlayer)
-        {
-            Debug.Log("SSSSS");
-        }
-    }
-
 
     public void Shoot()
     {
-       
-            if (canShoot && bulletsToShoot >0 && canSeePlayer)
-            {
 
-                bulletsToShoot--;
-                var errorMargin = 0.3f;
-                var targetDir = (enemy.pl_pos.pos + Random.insideUnitSphere * errorMargin) - transform.position;
+        if (canShoot && bulletsToShoot > 0 && enemy.canSeePlayer)
+        {
+
+            bulletsToShoot--;
+
+            var errorMargin = 0.1f;
+            var targetDir = (enemy.pl_pos.pos + Random.insideUnitSphere * errorMargin) - transform.position;
 
             PerformShoot(weaponStats, weaponStats.shootingPoint.transform.position, targetDir);
         }
@@ -69,7 +47,7 @@ public class EnemyShoot : Shoot
         yield return new WaitForSeconds(s);
         bulletsToShoot = Random.Range(1, 4);
         waitingTillNextShoot = false;
-        
+
     }
 
 

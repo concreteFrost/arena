@@ -24,14 +24,13 @@ public class EnemyChaseBehaviour : StateMachineBehaviour
         float dist = Vector3.Distance(agent.transform.position, stats.pl_pos.pos);
 
         agent.speed = stats.speed;
-        if (dist > 30)
+        if (dist > 25)
         {
             agent.SetDestination(stats.pl_pos.pos);
         }
         else
         {
             animator.SetBool("isInAttackRange", true);
-            //animator.SetBool("isCovering", true);
         }
     }
 

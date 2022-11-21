@@ -3,9 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+
 public class Enemy : MonoBehaviour
 {
     public EnemySO enemySO;
+
+    #region //Field of view
+    FieldOfView fov;
+    public bool canSeePlayer;
+
+    float maxFOVAngle = 100;
+    public float lookRadius = 300;
+    #endregion
 
     public string name;
     public float health;
@@ -23,6 +32,9 @@ public class Enemy : MonoBehaviour
 
     public bool isDead;
 
+    public GameEventListener playerDead;
+
+
     // Start is called before the first frame update
 
     private void Awake()
@@ -32,7 +44,7 @@ public class Enemy : MonoBehaviour
         speed = enemySO.e_speed;
         e_weapon = Instantiate(enemySO.e_weapon, weaponHolder.position, weaponHolder.rotation);
         e_weapon.transform.parent = weaponHolder;
-
+        fov = GetComponent<FieldOfView>();
      
     }
     void Start()
@@ -51,9 +63,11 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
-        LookAtTarget();
+        if (anim.GetBool("isInAttackRange") && !isDead || agent.isStopped == true && !isDead)
+            LookAtTarget();
 
-        if(health <= 0)
+        canSeePlayer = fov.CanSeePlayer(transform, maxFOVAngle, lookRadius, pl_pos, "Player");
+        if (health <= 0)
         {
             health = 0;
             Died();
@@ -63,8 +77,6 @@ public class Enemy : MonoBehaviour
 
     void LookAtTarget()
     {
-
-        if (anim.GetBool("isInAttackRange") && !isDead)
             transform.LookAt(pl_pos.pos);
     }
 
@@ -87,6 +99,14 @@ public class Enemy : MonoBehaviour
     {
         health -= damageAmount;
         Debug.Log(health);
+    }
+
+    public void PlayerDead()
+    {
+        anim.SetBool("isInAttackRange", false);
+        anim.SetBool("isAiming", false);
+        agent.Stop();
+
     }
 
 }
