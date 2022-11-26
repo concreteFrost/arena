@@ -38,6 +38,11 @@ public class PlayerUI : MonoBehaviour
             healthbar.value -= Time.deltaTime * 20;
         }
 
-        
+        if (healthbar.value < currHealthValue)
+        {
+            healthbar.value += Time.deltaTime * 20;
+        }
+
+
     }
 }

@@ -16,9 +16,11 @@ public class EnemyStrafeBehaviour : StateMachineBehaviour
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         agent = animator.GetComponent<NavMeshAgent>();
+        agent.Resume();
+
         stats = animator.GetComponent<Enemy>();
         animator.SetBool("isAiming", true);
-
+       
         StrafeDirection(strafeDirections[Random.Range(0, strafeDirections.Length - 1)]);
         timeBeforeChangeDirection = Random.Range(2, 5);
         waitTillRunToCover = Random.Range(5, 7);
@@ -40,6 +42,7 @@ public class EnemyStrafeBehaviour : StateMachineBehaviour
         if (waitTillRunToCover >= 0)
         {
             waitTillRunToCover -= Time.deltaTime;
+            StrafeCalc();
         }
 
         else
@@ -48,35 +51,10 @@ public class EnemyStrafeBehaviour : StateMachineBehaviour
             animator.SetBool("isInAttackRange", false);
         }
 
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            waitTillRunToCover = -1;
-            animator.SetBool("isCovering", true);
-        }
-
-        StrafeCalc();
+        
       
 
     }
-
-    // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
-    //override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-
-    //}
-
-    // OnStateMove is called right after Animator.OnAnimatorMove()
-    //override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-    //    // Implement code that processes and affects root motion
-    //}
-
-    // OnStateIK is called right after Animator.OnAnimatorIK()
-    //override public void OnStateIK(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-    //    // Implement code that sets up animation IK (inverse kinematics)
-    //}
-
 
     void StrafeCalc()
     {

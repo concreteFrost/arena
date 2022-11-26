@@ -63,6 +63,7 @@ public class PlayerStats : MonoBehaviour
         price = pl_stats.price;
 
         gender = pl_stats.gender;
+       
     }
 
     private void Start()
@@ -73,6 +74,7 @@ public class PlayerStats : MonoBehaviour
         controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
         rig = GetComponentInChildren<RigBuilder>();
+        health = 20;
     }
 
     public void ResetParams()
@@ -95,8 +97,8 @@ public class PlayerStats : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        //health -= damage;
-        Debug.Log(health);
+        health -= damage;
+
     }
 
     public void Die()

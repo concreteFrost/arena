@@ -11,12 +11,14 @@ public class EnemyTakeCoverBehaviour : StateMachineBehaviour
     public float maxDistance;
     float recoverWaitingTime;
     Enemy enemy;
+    
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         enemy = animator.GetComponent<Enemy>();
         agent = animator.GetComponent<NavMeshAgent>();
         recoverWaitingTime = Random.Range(2, 10);
+
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -24,6 +26,13 @@ public class EnemyTakeCoverBehaviour : StateMachineBehaviour
     {
         FindClosestCover(animator);
         VisibleInCover(animator);
+        CalculateRecoveringTime(animator);
+
+
+    }
+
+    public void CalculateRecoveringTime(Animator animator)
+    {
 
         if (recoverWaitingTime > 0)
         {
@@ -34,8 +43,6 @@ public class EnemyTakeCoverBehaviour : StateMachineBehaviour
         {
             SwitchToAttack(animator);
         }
-
-
     }
 
     public void VisibleInCover(Animator animator)
@@ -43,15 +50,17 @@ public class EnemyTakeCoverBehaviour : StateMachineBehaviour
 
         if (agent.isStopped && enemy.canSeePlayer==true)
         {
+            Debug.Log("I SEE YOU");
             SwitchToAttack(animator);
         }
     }
 
     void SwitchToAttack(Animator animator)
     {
+
         animator.SetBool("isCovering", false);
         animator.SetBool("isInAttackRange", true);
-        agent.Resume();
+
     }
 
 

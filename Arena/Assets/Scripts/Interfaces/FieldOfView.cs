@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class FieldOfView : MonoBehaviour
 {
+    public float yOffset;
 
     public bool CanSeePlayer(Transform myPos, float maxAngle, float lookRaduis, VariablesSO pl_pos, string targetName)
     {
@@ -14,8 +15,9 @@ public class FieldOfView : MonoBehaviour
         if (angleToPlayer >= -maxAngle && angleToPlayer <= maxAngle && dist < lookRaduis)
         {
             RaycastHit hit;
+
             var targetCenter = new Vector3(targetDir.x, 0.5f, targetDir.z);
-            if (Physics.Raycast(myPos.position, targetCenter, out hit))
+            if (Physics.Raycast(myPos.position + (Vector3.up * yOffset), targetCenter, out hit))
             {
                 if (hit.collider.CompareTag(targetName))
                 {

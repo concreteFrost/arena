@@ -9,7 +9,7 @@ public class Enemy : MonoBehaviour
     public EnemySO enemySO;
 
     #region //Field of view
-    FieldOfView fov;
+    public FieldOfView fov;
     public bool canSeePlayer;
 
     float maxFOVAngle = 100;
@@ -45,7 +45,7 @@ public class Enemy : MonoBehaviour
         e_weapon = Instantiate(enemySO.e_weapon, weaponHolder.position, weaponHolder.rotation);
         e_weapon.transform.parent = weaponHolder;
         fov = GetComponent<FieldOfView>();
-     
+
     }
     void Start()
     {
@@ -54,7 +54,7 @@ public class Enemy : MonoBehaviour
 
         rBodies = GetComponentsInChildren<Rigidbody>();
 
-        foreach(var r in rBodies)
+        foreach (var r in rBodies)
         {
             r.isKinematic = true;
         }
@@ -63,27 +63,26 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
-        if (anim.GetBool("isInAttackRange") && !isDead || agent.isStopped == true && !isDead)
-            LookAtTarget();
+
+        LookAtTarget();
 
         canSeePlayer = fov.CanSeePlayer(transform, maxFOVAngle, lookRadius, pl_pos, "Player");
-        if (health <= 0)
-        {
-            health = 0;
-            Died();
-        }
 
     }
 
     void LookAtTarget()
     {
-            transform.LookAt(pl_pos.pos);
+        if (agent.isActiveAndEnabled)
+        {
+            if (anim.GetBool("isInAttackRange") && !isDead || agent.isStopped == true && !isDead)
+                transform.LookAt(pl_pos.pos);
+        }
     }
 
     public void Died()
     {
         anim.SetBool("isDead", true);
-        
+
         foreach (var r in rBodies)
         {
             r.isKinematic = false;
@@ -92,13 +91,18 @@ public class Enemy : MonoBehaviour
         anim.enabled = false;
         agent.enabled = false;
         isDead = true;
-        
+
     }
 
     public void TakeDamage(int damageAmount)
     {
         health -= damageAmount;
-        Debug.Log(health);
+        if (health <= 0)
+        {
+            health = 0;
+            Died();
+        }
+
     }
 
     public void PlayerDead()

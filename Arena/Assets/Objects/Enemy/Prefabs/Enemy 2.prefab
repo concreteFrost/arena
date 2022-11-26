@@ -2890,6 +2890,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemySO: {fileID: 11400000, guid: be65479fd3415ca47ae2ff8c8d4626b7, type: 2}
+  fov: {fileID: 0}
   canSeePlayer: 0
   lookRadius: 300
   name: 
@@ -2951,6 +2952,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3421e7997b88725418c22e18d73fe3db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  yOffset: 0.6
 --- !u!114 &984029488
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -114,9 +114,7 @@ MonoBehaviour:
   weaponImage: {fileID: 983232618, guid: dcfc4ab82fa6f4747ae6e72b27d7bcb5, type: 3}
   type: 0
   muzzleFlash: {fileID: 4608553048423310931}
-  hitEffect:
-  - {fileID: 3892717819945924118, guid: 502adf09550a112429a59043015ebca1, type: 3}
-  - {fileID: 3892717819945924118, guid: 560784a6a2f0768409886c54f722ffde, type: 3}
+  hitEffect: []
   shotSound: {fileID: 8300000, guid: eba2b274dc42f634ba051a9107b6d082, type: 3}
   noAmmo: {fileID: 8300000, guid: b1dfe04fa0b17524688a78be68957b32, type: 3}
   s_weapon: {fileID: 11400000, guid: f24dd56d8a00a524d87b2f5ae37c4c40, type: 2}

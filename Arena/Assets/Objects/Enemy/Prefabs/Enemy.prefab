@@ -2241,7 +2241,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6306029814898402407
 Transform:
   m_ObjectHideFlags: 0
@@ -2292,6 +2292,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemySO: {fileID: 11400000, guid: 7f2e53b3c0b5715449e8e475a4fe9429, type: 2}
+  fov: {fileID: 0}
   canSeePlayer: 0
   lookRadius: 300
   name: 
@@ -2353,6 +2354,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3421e7997b88725418c22e18d73fe3db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  yOffset: 0.6
 --- !u!114 &990500440
 MonoBehaviour:
   m_ObjectHideFlags: 0
