@@ -38,18 +38,7 @@ public class PlayerStats : MonoBehaviour
 
     private void Awake()
     {
-        colliders = GetComponentsInChildren<CapsuleCollider>();
-        rbs = GetComponentsInChildren<Rigidbody>();
-
-        foreach (var collider in colliders)
-        {
-            collider.enabled = false;
-        }
-
-        foreach(Rigidbody r in rbs)
-        {
-            r.isKinematic = true;
-        }
+       
 
         name = pl_stats.name;
 
@@ -68,13 +57,25 @@ public class PlayerStats : MonoBehaviour
 
     private void Start()
     {
-       
+        colliders = GetComponentsInChildren<CapsuleCollider>();
+        rbs = GetComponentsInChildren<Rigidbody>();
+
+        foreach (var collider in colliders)
+        {
+
+            collider.enabled=false;
+        }
+
+        foreach (Rigidbody r in rbs)
+        {
+            r.isKinematic = true;
+        }
 
         thirdPersonController = GetComponent<ThirdPersonController>();
         controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
         rig = GetComponentInChildren<RigBuilder>();
-        health = 20;
+     
     }
 
     public void ResetParams()

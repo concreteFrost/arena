@@ -7,10 +7,10 @@ public class EnemyStrafeBehaviour : StateMachineBehaviour
 {
     NavMeshAgent agent;
     Enemy stats;
-    float timeBeforeChangeDirection;
+    public float timeBeforeChangeDirection;
     Vector3[] strafeDirections = new[] { Vector3.up, Vector3.down };
 
-    float waitTillRunToCover;
+    public float waitTillRunToCover;
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -21,9 +21,9 @@ public class EnemyStrafeBehaviour : StateMachineBehaviour
         stats = animator.GetComponent<Enemy>();
         animator.SetBool("isAiming", true);
        
-        StrafeDirection(strafeDirections[Random.Range(0, strafeDirections.Length - 1)]);
+        StrafeDirection(strafeDirections[Random.Range(0, strafeDirections.Length)]);
         timeBeforeChangeDirection = Random.Range(2, 5);
-        waitTillRunToCover = Random.Range(5, 7);
+        waitTillRunToCover = Random.Range(7, 15);
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -76,7 +76,7 @@ public class EnemyStrafeBehaviour : StateMachineBehaviour
     }
     void StrafeDirection(Vector3 dir)
     {
-        agent.speed = 3.7f;
+        agent.speed = 3.3f;
 
         var dist = agent.transform.position - stats.pl_pos.pos;
       

@@ -78,8 +78,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   plArmature: {fileID: 6459274359602124910}
-  defaultPlayer: {fileID: 4692441660320891829, guid: 63524c422b71f474aaa0b91fb999782a,
-    type: 3}
+  playerStatsSO: {fileID: 0}
+  geometry: {fileID: 0}
 --- !u!114 &856282355748521480
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -276,7 +276,7 @@ MonoBehaviour:
   x_sensitivity: 100
   yRotationLimit: 18.2
   rotation: {x: 0, y: 0, z: 0}
-  recoilY: 0
+  defSpineTargetPos: {x: 0, y: 0, z: 0}
 --- !u!1 &6063748481314378560
 GameObject:
   m_ObjectHideFlags: 0
@@ -743,12 +743,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isAiming: 0
   isReloading: 0
-  cinemachine: {fileID: 0}
   canShoot: 1
+  cinemachine: {fileID: 0}
   cams:
   - {fileID: 0}
   - {fileID: 6063748481313896327}
   combatCamera: {fileID: 6063748481313896330}
+  weapon: {fileID: 0}
   recoilX: 0.599
   recoilY: 0.441
 --- !u!114 &3838083476136161889
@@ -776,11 +777,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weapons: []
-  weaponIcon: {fileID: 0}
-  weaponText: {fileID: 0}
-  bulletAmountText: {fileID: 0}
+  hats: []
   weaponInstance: {fileID: 0}
-  _weaponIndex: 0
+  weaponHolder: {fileID: 0}
+  pl_statsSO: {fileID: 0}
+  hat: {fileID: 0}
 --- !u!82 &3838083476136161891
 AudioSource:
   m_ObjectHideFlags: 0

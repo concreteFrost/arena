@@ -172,6 +172,9 @@ MonoBehaviour:
   type: 0
   addToValue: 0
   t: {fileID: 6821507588387744881}
+  pl_pos: {fileID: 0}
+  respawn: {fileID: 0}
+  amountToSpawn: 0
 --- !u!23 &3281769616668166516
 MeshRenderer:
   m_ObjectHideFlags: 0

@@ -8,15 +8,17 @@ public class Inventory : MonoBehaviour
     public List<GameObject> weapons = new List<GameObject>();
     public List<GameObject> hats = new List<GameObject>();
     
+    //the current weapon that player is holding
     public GameObject weaponInstance;
-    public int _weaponIndex;
+    
     public Transform weaponHolder;
-    DataBaseManager db;
 
     PlayerUI ui;
     PlayerShoot plShoot;
     public PlayerStatsSO pl_statsSO;
     public GameObject hat;
+
+    private int _weaponIndex;
     public int weaponIndex
     {
         get { return _weaponIndex; }
@@ -37,7 +39,7 @@ public class Inventory : MonoBehaviour
 
     private void Start()
     {
-        db = GameObject.FindGameObjectWithTag("DataBase").GetComponent<DataBaseManager>();
+
         ui = GetComponent<PlayerUI>();
         GetItemOnStart();
         GetWeaponOnStart();
@@ -113,7 +115,7 @@ public class Inventory : MonoBehaviour
         {
             var hatPlacer = GameObject.FindGameObjectWithTag("hatPlacer");
 
-            GameObject i = Instantiate(pl_statsSO.additionalItem, hatPlacer.transform.position, hatPlacer.transform.root.localRotation);
+            GameObject i = Instantiate(pl_statsSO.additionalItem, hatPlacer.transform.position, transform.rotation);
 
             i.transform.parent = hatPlacer.transform;
 

@@ -7,8 +7,6 @@ public class EnemyTakeCoverBehaviour : StateMachineBehaviour
 {
     NavMeshAgent agent;
 
-    public float sphereRadius;
-    public float maxDistance;
     float recoverWaitingTime;
     Enemy enemy;
     
@@ -50,7 +48,7 @@ public class EnemyTakeCoverBehaviour : StateMachineBehaviour
 
         if (agent.isStopped && enemy.canSeePlayer==true)
         {
-            Debug.Log("I SEE YOU");
+            
             SwitchToAttack(animator);
         }
     }
@@ -91,21 +89,4 @@ public class EnemyTakeCoverBehaviour : StateMachineBehaviour
 
     }
 
-
-    override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    {
-        //closest = null;
-    }
-
-    // OnStateMove is called right after Animator.OnAnimatorMove()
-    //override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-    //    // Implement code that processes and affects root motion
-    //}
-
-    // OnStateIK is called right after Animator.OnAnimatorIK()
-    //override public void OnStateIK(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-    //    // Implement code that sets up animation IK (inverse kinematics)
-    //}
 }

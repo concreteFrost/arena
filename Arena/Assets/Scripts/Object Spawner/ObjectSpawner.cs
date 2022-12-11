@@ -8,13 +8,38 @@ public class ObjectSpawner : MonoBehaviour
 {
     public List<ObjectsToSpawnSO> objectsToSpawnSO;
 
-    public List<Transform> weaponSpawnPoints;
-    public List<Transform> itemsSpawnPoints;
+    public List<Transform> weaponSpawnPoints;  
+    public List<Transform> itemsSpawnPoints;  
     public List<Transform> enemiesSpawnPoints;
 
     public List<GameObject> weaponsOnStage;
     public List<GameObject> itemsOnStage;
     public List<GameObject> enemiesOnStage;
+
+    public int maxItemsToRespawn;
+    public int maxWeaponsToRespawn;
+
+    public void Respawn()
+    {
+        List<List<GameObject>> list = new List<List<GameObject>>();
+        list.Add(weaponsOnStage);
+        list.Add(itemsOnStage);
+
+        foreach(var l in list)
+        {
+            foreach(var item in l)
+            {
+                if(item.active == false)
+                {
+                    Debug.Log("here");
+                    item.GetComponent<ISpawnable>().DeductFromSpawn(1);
+                    StartCoroutine(SetBackToActive(3f, item));      
+                    
+                }
+                    
+            }
+        }
+    }
 
 
     public void Spawn(ObjectsToSpawnSO objectsToSpawn, List<GameObject> listToAdd, List<Transform> points)
@@ -43,6 +68,7 @@ public class ObjectSpawner : MonoBehaviour
         {
             GameObject go;
             go = Instantiate(tempList[i], points[i].position, Quaternion.identity);
+            go.transform.parent = points[i];
             listToAdd.Add(go);
         }
     }
@@ -53,7 +79,7 @@ public class ObjectSpawner : MonoBehaviour
         foreach (var spawnPosition in spawnPositions)
         {
             RaycastHit hit;
-            if (Physics.Raycast(spawnPosition.position, -spawnPosition.up, out hit, 1f))
+            if (Physics.Raycast(spawnPosition.position, -spawnPosition.up, out hit, Mathf.Infinity))
             {
                 float yOffset = 0.2f;
                 spawnPosition.position = new Vector3(hit.point.x, hit.point.y + yOffset, hit.point.z);
@@ -88,16 +114,25 @@ public class ObjectSpawner : MonoBehaviour
         DrawSpawnSpheres(Color.red, enemiesSpawnPoints);
         DrawSpawnSpheres(Color.green, itemsSpawnPoints);
         DrawSpawnSpheres(Color.blue, weaponSpawnPoints);
-
-    
     }
 
     void DrawSpawnSpheres(Color col, List<Transform> list)
     {
         foreach (var t in list)
         {
-            Gizmos.color = col;
-            Gizmos.DrawSphere(t.position, 0.2f);
+            if (t != null)
+            {
+
+                Gizmos.color = col;
+                Gizmos.DrawSphere(t.position, 0.2f);
+            }
         }
+    }
+
+    IEnumerator SetBackToActive(float s, GameObject go)
+    {
+        yield return new WaitForSeconds(s);
+        go.SetActive(true);
+
     }
 }

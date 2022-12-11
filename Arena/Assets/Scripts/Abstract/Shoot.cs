@@ -9,6 +9,7 @@ public abstract class Shoot : MonoBehaviour
     public bool isReloading;
     public bool canShoot;
 
+
     public virtual void PerformShoot(WeaponStats weaponStats, Vector3 shootPoint,Vector3 direction)
     {
    
@@ -17,43 +18,31 @@ public abstract class Shoot : MonoBehaviour
         {
             //define if its goint to be dust or blood
             int effectType = 0;
+
+            //cause damage if the object has the IDamagable interface
             if (hit.transform.GetComponent<IDamagable>() != null)
             {
                 hit.transform.GetComponent<IDamagable>()?.TakeDamage(weaponStats.weaponDamage);
                 effectType = 1;
 
             }
-            
-            if(effectType==0)
-                PerformPooling(ObjectPooling.instance.dustParticles, hit);
+
+            //pool the particle from ObjectPooling script
+            if (effectType == 0)
+                ObjectPooling.instance.Pool(ObjectPooling.instance.dustParticles, hit);
             else
-                PerformPooling(ObjectPooling.instance.bloodParticles, hit);
+                ObjectPooling.instance.Pool(ObjectPooling.instance.bloodParticles, hit);
 
         }
 
+        //sets the interval between shoot
         StartCoroutine(CoolDown(weaponStats.coolDown));
 
+        //turns on muzzle flash and plays an audio clip
         weaponStats.WeaponShoot();
     }
 
-    void PerformPooling( List<GameObject> listToUse, RaycastHit hitPoint)
-    {
-        var obj = listToUse.FirstOrDefault(x => x.active == false);
-
-        if (obj == false)
-        {
-
-            ObjectPooling.instance.InstantiateIfNotEnough(listToUse[0], listToUse);
-        }
-
-        if (obj != null)
-        {
-           obj.transform.position = hitPoint.point;
-           obj.transform.rotation = Quaternion.LookRotation(hitPoint.normal);
-           obj.SetActive(true);
-            StartCoroutine(SetEffectNotActive(obj));
-        }
-    }
+   
 
     IEnumerator CoolDown(float s)
     {
@@ -73,11 +62,6 @@ public abstract class Shoot : MonoBehaviour
             w.bulletCount -= amount;
 
         }
-    }
-    IEnumerator SetEffectNotActive(GameObject effect)
-    {
-        yield return new WaitForSeconds(1F);
-        effect.SetActive(false);
     }
 
 

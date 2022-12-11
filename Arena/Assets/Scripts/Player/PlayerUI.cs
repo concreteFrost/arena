@@ -12,6 +12,8 @@ public class PlayerUI : MonoBehaviour
     public Slider healthbar;
     float currHealthValue;
     PlayerStats plStats;
+
+    public GameObject rescueCommands;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,6 +21,7 @@ public class PlayerUI : MonoBehaviour
         healthbar.maxValue = plStats.health;
         healthbar.value = plStats.health;
         currHealthValue = plStats.health;
+        rescueCommands.SetActive(false);
 
 
     }

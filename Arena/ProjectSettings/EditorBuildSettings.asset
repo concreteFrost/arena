@@ -9,6 +9,6 @@ EditorBuildSettings:
     path: Assets/Scenes/CharacterCreator.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
-    path: Assets/Scenes/Level.unity
-    guid: bf3b67ffb4da73343bb32026daf0d684
+    path: Assets/Scenes/Map_v2.unity
+    guid: 901531b334e2b6142be5391555ff38d8
   m_configObjects: {}

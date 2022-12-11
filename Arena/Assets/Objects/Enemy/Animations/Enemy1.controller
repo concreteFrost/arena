@@ -218,6 +218,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f66abd42d9a693f46917bea0cc138899, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timeBeforeChangeDirection: 0
+  waitTillRunToCover: 0
 --- !u!1102 &-3394825467240147506
 AnimatorState:
   serializedVersion: 6
@@ -646,8 +648,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d6089fd8a5fe884da5adbe8c0963a0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sphereRadius: 50
-  maxDistance: 10
 --- !u!1101 &7096344347282045700
 AnimatorStateTransition:
   m_ObjectHideFlags: 1

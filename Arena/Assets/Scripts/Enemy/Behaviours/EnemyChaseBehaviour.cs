@@ -24,7 +24,7 @@ public class EnemyChaseBehaviour : StateMachineBehaviour
         float dist = Vector3.Distance(agent.transform.position, stats.pl_pos.pos);
 
         agent.speed = stats.speed;
-        if (dist > 25)
+        if (dist < 20 || stats.canSeePlayer)
         {
             agent.SetDestination(stats.pl_pos.pos);
         }

@@ -56,12 +56,14 @@ public class PlayerShoot : Shoot
     {
         if (Input.GetMouseButton(1))
         {
+            //shooting is only available if the player is aiming
             isAiming = true;
+
+            //used to rotate player on X axis
             gameObject.transform.Rotate(0, Input.GetAxis("Mouse X") * 220 * Time.deltaTime, 0);
 
             if (Input.GetMouseButton(0) && canShoot && !isReloading)
             {
-
                 Shoot(weapon);
             }
         }
@@ -70,6 +72,22 @@ public class PlayerShoot : Shoot
             isAiming = false;
 
         }
+    }
+
+
+    void Shoot(WeaponStats weapon)
+    {
+
+        if (weapon.bulletsInMagazine > 0)
+        {
+            //reusing a method taken from an abstract class
+            PerformShoot(weapon, weapon.shootingPoint.position, combatCamera.transform.forward);
+            StartCoroutine(Recoil(weapon));
+
+            weapon.bulletsInMagazine--;
+
+        }
+
     }
 
     void CameraControl()
@@ -93,22 +111,6 @@ public class PlayerShoot : Shoot
         animator.SetBool("isGunReloading", isReloading);
     }
 
-    void Shoot(WeaponStats weapon)
-    {
-
-        PerformShoot(weapon, weapon.shootingPoint.position, combatCamera.transform.forward);
-
-        if (weapon.bulletsInMagazine > 0)
-        {
-           
-            StartCoroutine(Recoil(weapon));
-            
-            weapon.bulletsInMagazine--;
-            
-        }
-
-
-    }
 
     public void SetDefaultCamera()
     {

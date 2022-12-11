@@ -12,7 +12,7 @@ public class LoadPlayer : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        GameObject pl = Instantiate(playerStatsSO.character, transform.position, Quaternion.identity);
+        GameObject pl = Instantiate(playerStatsSO.character, transform.position,transform.rotation);
         pl.transform.SetParent(geometry.transform);
         plArmature.SetActive(false);
         plArmature.SetActive(true);

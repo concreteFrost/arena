@@ -47,14 +47,17 @@ public class WeaponStats : MonoBehaviour, IInteractable
     public void Interact(GameObject other)
     {
         var inventory = other.GetComponent<Inventory>();
-        var c = inventory.weapons.Any((x) => x.GetComponent<WeaponStats>().id == GetComponent<WeaponStats>().id);
 
-        if (!c)
+        //Check if the weapon is not presented in player`s inventory
+        var match = inventory.weapons.Any((x) => x.GetComponent<WeaponStats>().id == GetComponent<WeaponStats>().id);
+
+        if (!match)
         {
             inventory.AddItem(gameObject);
             other.GetComponent<PlayerInteract>().AddToHand(gameObject);
         }
     }
+
 
     public void WeaponShoot()
     {

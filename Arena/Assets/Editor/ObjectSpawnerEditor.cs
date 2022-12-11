@@ -35,10 +35,31 @@ public class ObjectSpawnerEditor : Editor
         }
         GUILayout.EndHorizontal();
 
+        GUILayout.BeginHorizontal();
+        if (GUILayout.Button("Destroy Weapons", opt))
+        {
+            obj.ResetObjects(obj.weaponsOnStage);
+        }
+
+        if (GUILayout.Button("Destroy Items", opt))
+        {
+            obj.ResetObjects(obj.itemsOnStage);
+        }
+
+        if (GUILayout.Button("Destroy Enemies", opt))
+        {
+            obj.ResetObjects(obj.enemiesOnStage);
+        }
+        GUILayout.EndHorizontal();
+
         if (GUILayout.Button("Destroy All", opt))
         {
             DestroyAllItems(obj);
         }
+
+     
+
+
 
     }
 
