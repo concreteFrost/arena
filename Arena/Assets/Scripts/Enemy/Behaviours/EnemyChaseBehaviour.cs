@@ -2,13 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Events;
+using System.Linq;
 
 public class EnemyChaseBehaviour : StateMachineBehaviour
 {
 
     NavMeshAgent agent;
     Enemy stats;
-    
+    Vector3 lastSeenPosition;
+    float currentHealth;
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -16,29 +19,27 @@ public class EnemyChaseBehaviour : StateMachineBehaviour
         agent = animator.GetComponent<NavMeshAgent>();
         stats = animator.GetComponent<Enemy>();
         animator.SetBool("isAiming", false);
+        lastSeenPosition = Vector3.zero;
+        currentHealth = stats.health;
+
+
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        float dist = Vector3.Distance(agent.transform.position, stats.pl_pos.pos);
-
         agent.speed = stats.speed;
-        if (dist < 20 || stats.canSeePlayer)
-        {
-            agent.SetDestination(stats.pl_pos.pos);
-        }
-        else
-        {
-            animator.SetBool("isInAttackRange", true);
-        }
+
+        var dist = Vector3.Distance(animator.transform.position, stats.pl_pos.pos);
+
+
+       
+
+       
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
-    //override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-    //    
-    //}
+
 
     // OnStateMove is called right after Animator.OnAnimatorMove()
     //override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

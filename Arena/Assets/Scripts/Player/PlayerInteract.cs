@@ -1,4 +1,4 @@
-using System.Collections;
+ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,28 +15,40 @@ public class PlayerInteract : MonoBehaviour
 
     private void Update()
     {
-        
+        RescueInteract();
+       
+    }
+
+    public void RescueInteract()
+    {
+
         RaycastHit hit;
 
-        if(Physics.Raycast(transform.position + Vector3.up, transform.forward, out hit, 2f))
+
+
+        if (Physics.SphereCast(transform.position + Vector3.up, 1f, transform.forward, out hit, 3f))
         {
-            if (hit.transform.GetComponent<Rescue>() != null)
+            if (hit.transform.GetComponent<RescueManager>())
             {
                 playerUI.rescueCommands.SetActive(true);
-                var rescue = hit.transform.GetComponent<Rescue>();
+                var rescue = hit.transform.GetComponent<RescueManager>();
                 if (Input.GetKeyDown(KeyCode.Alpha1))
                     rescue.Wait();
                 if (Input.GetKeyDown(KeyCode.Alpha2))
-                    rescue.Follow();
+                    rescue.Follow(transform);
                 if (Input.GetKeyDown(KeyCode.Alpha3))
                     rescue.TakeCover();
 
             }
 
-            
-        }
+           
 
+        }
         else playerUI.rescueCommands.SetActive(false);
+
+
+
+
     }
 
     //This method is called within Interactable object

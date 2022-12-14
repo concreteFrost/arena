@@ -20,7 +20,7 @@ public class EnemyShoot : Shoot
         waitingTillNextShoot = false;
     }
 
-    public void Shoot()
+    public void Shoot(Vector3 target)
     {
 
         if (canShoot && bulletsToShoot > 0 && enemy.canSeePlayer)
@@ -29,7 +29,7 @@ public class EnemyShoot : Shoot
             bulletsToShoot--;
 
             var errorMargin = 0.1f;
-            var targetDir = (enemy.pl_pos.pos + Random.insideUnitSphere * errorMargin) - transform.position;
+            var targetDir = (target + Random.insideUnitSphere * errorMargin) - transform.position;
 
             PerformShoot(weaponStats, weaponStats.shootingPoint.transform.position, targetDir);
         }

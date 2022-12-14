@@ -13,7 +13,7 @@ public class Enemy : MonoBehaviour
     public bool canSeePlayer;
 
     float maxFOVAngle = 100;
-    public float lookRadius = 300;
+    public float lookRadius = 100;
     #endregion
 
     public string name;
@@ -24,7 +24,7 @@ public class Enemy : MonoBehaviour
     public VariablesSO pl_pos;
 
     Animator anim;
-    NavMeshAgent agent;
+    public NavMeshAgent agent;
 
     public Transform weaponHolder;
 
@@ -33,6 +33,7 @@ public class Enemy : MonoBehaviour
     public bool isDead;
 
     public GameEventListener playerDead;
+    public GameEventListener playerShooting;
 
 
     // Start is called before the first frame update
@@ -63,26 +64,23 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
-
-        LookAtTarget();
-
         canSeePlayer = fov.CanSeePlayer(transform, maxFOVAngle, lookRadius, pl_pos, "Player");
-
+        if (canSeePlayer)
+        {
+            Debug.Log("i seeeeeee");
+        }
+        
     }
 
-    void LookAtTarget()
+    public void HeardTheShot()
     {
-        if (agent.isActiveAndEnabled)
-        {
-            if (anim.GetBool("isInAttackRange") && !isDead || agent.isStopped == true && !isDead)
-                transform.LookAt(pl_pos.pos);
-        }
+        var dist = Vector3.Distance(transform.position, pl_pos.pos);
+        if (anim.GetCurrentAnimatorStateInfo(1).IsName("Patrol") && dist < 100)
+            anim.SetBool("isInAttackRange", true);
     }
 
     public void Died()
     {
-        anim.SetBool("isDead", true);
-
         foreach (var r in rBodies)
         {
             r.isKinematic = false;
@@ -104,6 +102,7 @@ public class Enemy : MonoBehaviour
         }
 
     }
+
 
     public void PlayerDead()
     {

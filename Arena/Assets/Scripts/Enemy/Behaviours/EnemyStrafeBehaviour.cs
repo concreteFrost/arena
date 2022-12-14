@@ -8,9 +8,12 @@ public class EnemyStrafeBehaviour : StateMachineBehaviour
     NavMeshAgent agent;
     Enemy stats;
     public float timeBeforeChangeDirection;
+    public float playerIsVisibleTimer;
+    float defaultVisibleInTemer = 2f;
     Vector3[] strafeDirections = new[] { Vector3.up, Vector3.down };
+    float randomHealthStats;
+    public Vector3 lastSeenPosition;
 
-    public float waitTillRunToCover;
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -19,45 +22,71 @@ public class EnemyStrafeBehaviour : StateMachineBehaviour
         agent.Resume();
 
         stats = animator.GetComponent<Enemy>();
-        animator.SetBool("isAiming", true);
+       
        
         StrafeDirection(strafeDirections[Random.Range(0, strafeDirections.Length)]);
         timeBeforeChangeDirection = Random.Range(2, 5);
-        waitTillRunToCover = Random.Range(7, 15);
+        playerIsVisibleTimer = defaultVisibleInTemer;
+        lastSeenPosition = Vector3.zero;
+        randomHealthStats = stats.health - (stats.health * Random.Range(0.2f, 0.5f));
+        agent.SetDestination(stats.pl_pos.pos);
+        animator.SetBool("isAiming", true);
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        agent.Resume();
+        var dist = Vector3.Distance(animator.transform.position, stats.pl_pos.pos);
 
-        float dist = Vector3.Distance(agent.transform.position, stats.pl_pos.pos);
-
-        //Used to Avoid Strafe and do player chasing
-        if (dist > 30)
-        {
-            animator.SetBool("isInAttackRange", false);
-          
-        }
-
-        if (waitTillRunToCover >= 0)
-        {
-            waitTillRunToCover -= Time.deltaTime;
+        //Do strafe run while fighting
+        if (dist < 15 && stats.canSeePlayer) {
             StrafeCalc();
+            
         }
 
-        else
+        //Take Cover
+        if (stats.health < randomHealthStats)
         {
+            
             animator.SetBool("isCovering", true);
             animator.SetBool("isInAttackRange", false);
         }
 
-        
-      
+        //Countdown time while player is not visible
+        if (!stats.canSeePlayer && playerIsVisibleTimer>0)
+        {
+            playerIsVisibleTimer  -= Time.deltaTime;
+        }
+
+        //Keep timer in default state while player is visible
+        if (stats.canSeePlayer)
+        {
+            playerIsVisibleTimer = defaultVisibleInTemer;
+        }
+
+        //Set destination to last seen position
+        if(playerIsVisibleTimer <= 0 && lastSeenPosition!=stats.pl_pos.pos)
+        {
+
+            playerIsVisibleTimer = defaultVisibleInTemer;
+            lastSeenPosition = stats.pl_pos.pos;
+            agent.SetDestination(lastSeenPosition);
+            
+        }
+
+        //Switch back to patrol mode
+        if(lastSeenPosition == stats.pl_pos.pos && agent.remainingDistance < 1)
+        {
+            animator.SetBool("isInAttackRange", false);
+            
+        }   
 
     }
 
     void StrafeCalc()
     {
+        
         if (timeBeforeChangeDirection <= 0)
         {
             StrafeDirection(strafeDirections[Random.Range(0, strafeDirections.Length)]);
@@ -69,7 +98,7 @@ public class EnemyStrafeBehaviour : StateMachineBehaviour
             timeBeforeChangeDirection -= Time.deltaTime;
         }
 
-        if (agent.remainingDistance < 1)
+        if (agent.remainingDistance < 2)
         {
             StrafeDirection(strafeDirections[Random.Range(0, strafeDirections.Length)]);
         }

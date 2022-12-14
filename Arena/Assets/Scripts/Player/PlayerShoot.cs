@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 
 public class PlayerShoot : Shoot
@@ -11,6 +12,7 @@ public class PlayerShoot : Shoot
     public GameObject[] cams;
     public GameObject combatCamera;
     public WeaponStats weapon;
+    public GameEventSO shooting;
     bool playerDead = false;
     //Recoil
     [Range(0, 1)]
@@ -81,9 +83,9 @@ public class PlayerShoot : Shoot
         if (weapon.bulletsInMagazine > 0)
         {
             //reusing a method taken from an abstract class
-            PerformShoot(weapon, weapon.shootingPoint.position, combatCamera.transform.forward);
+            PerformShoot(weapon, combatCamera.transform.position, combatCamera.transform.forward);
             StartCoroutine(Recoil(weapon));
-
+            shooting.Raise();
             weapon.bulletsInMagazine--;
 
         }

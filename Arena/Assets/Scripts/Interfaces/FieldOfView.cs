@@ -16,12 +16,13 @@ public class FieldOfView : MonoBehaviour
         {
             RaycastHit hit;
 
-            var targetCenter = new Vector3(targetDir.x, 0.5f, targetDir.z);
+            var targetCenter = targetDir;
             if (Physics.Raycast(myPos.position + (Vector3.up * yOffset), targetCenter, out hit))
             {
+                Debug.DrawRay(myPos.position + (Vector3.up * yOffset), targetCenter);
                 if (hit.collider.CompareTag(targetName))
                 {
-
+                    
                     return true;
 
                 }

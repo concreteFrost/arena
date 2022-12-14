@@ -24,7 +24,7 @@ public abstract class Shoot : MonoBehaviour
             {
                 hit.transform.GetComponent<IDamagable>()?.TakeDamage(weaponStats.weaponDamage);
                 effectType = 1;
-
+               
             }
 
             //pool the particle from ObjectPooling script
