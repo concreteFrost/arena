@@ -4,7 +4,7 @@ using UnityEngine;
 using System.Linq;
 
 [ExecuteInEditMode]
-public class ObjectSpawner : MonoBehaviour
+public class ObjectSpawner : SnapToSurface
 {
     public List<ObjectsToSpawnSO> objectsToSpawnSO;
 
@@ -74,17 +74,9 @@ public class ObjectSpawner : MonoBehaviour
     }
 
     //Use to Place object on a surface
-    void GetSurface(List<Transform> spawnPositions)
+    public override void GetSurface(List<Transform> spawnPositions)
     {
-        foreach (var spawnPosition in spawnPositions)
-        {
-            RaycastHit hit;
-            if (Physics.Raycast(spawnPosition.position, -spawnPosition.up, out hit, Mathf.Infinity))
-            {
-                float yOffset = 0.2f;
-                spawnPosition.position = new Vector3(hit.point.x, hit.point.y + yOffset, hit.point.z);
-            }
-        }
+        base.GetSurface(spawnPositions);
     }
 
     //Use to Delete object from stage
