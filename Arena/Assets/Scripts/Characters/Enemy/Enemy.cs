@@ -27,6 +27,7 @@ public class Enemy : MonoBehaviour
     public NavMeshAgent agent;
 
     public Transform weaponHolder;
+    public int patrolZoneIndex;
 
     Rigidbody[] rBodies;
 
@@ -75,7 +76,7 @@ public class Enemy : MonoBehaviour
     public void HeardTheShot()
     {
         var dist = Vector3.Distance(transform.position, pl_pos.pos);
-        if (anim.GetCurrentAnimatorStateInfo(1).IsName("Patrol") && dist < 100)
+        if (anim.GetCurrentAnimatorStateInfo(1).IsName("Patrol") && dist < enemySO.hearingDistance)
             anim.SetBool("isInAttackRange", true);
     }
 

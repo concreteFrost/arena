@@ -40,7 +40,7 @@ public class EnemyStrafeBehaviour : StateMachineBehaviour
         var dist = Vector3.Distance(animator.transform.position, stats.pl_pos.pos);
 
         //Do strafe run while fighting
-        if (dist < 15 && stats.canSeePlayer) {
+        if (stats.canSeePlayer) {
             StrafeCalc();
             
         }

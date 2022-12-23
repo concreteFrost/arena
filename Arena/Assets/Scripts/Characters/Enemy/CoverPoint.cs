@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class CoverPoint : MonoBehaviour
@@ -10,6 +11,7 @@ public class CoverPoint : MonoBehaviour
     public bool canSeePlayer;
     public VariablesSO pl_pos;
     FieldOfView fov;
+    public GameObject gizmoMesh;
 
     private void Start()
     {
@@ -32,6 +34,12 @@ public class CoverPoint : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawMesh(gizmoMesh.GetComponent<MeshFilter>().sharedMesh, transform.position,Quaternion.identity);
+        Handles.Label(transform.position,"cover point");
+    }
 
 }

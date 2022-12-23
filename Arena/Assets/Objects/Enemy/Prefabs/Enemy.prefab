@@ -2300,9 +2300,12 @@ MonoBehaviour:
   speed: 0
   e_weapon: {fileID: 0}
   pl_pos: {fileID: 11400000, guid: 6a7a84811f6c838408efdbbaeac6cd4d, type: 2}
+  agent: {fileID: 0}
   weaponHolder: {fileID: 5767208735249920352}
+  patrolZoneIndex: 0
   isDead: 0
   playerDead: {fileID: 0}
+  playerShooting: {fileID: 0}
 --- !u!195 &100108747832524318
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2322,7 +2325,7 @@ NavMeshAgent:
   m_AutoBraking: 0
   m_AutoRepath: 1
   m_Height: 2
-  m_BaseOffset: -0.1
+  m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!114 &100108747832524312

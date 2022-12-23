@@ -625,7 +625,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 2
-    m_ConditionEvent: isChasing
+    m_ConditionEvent: isCovering
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -275754850945309263}
@@ -665,6 +665,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e58a5d6ca8af0ab44a62390d6e966933, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  patrolPoints: []
 --- !u!1101 &9038905953203050645
 AnimatorStateTransition:
   m_ObjectHideFlags: 1

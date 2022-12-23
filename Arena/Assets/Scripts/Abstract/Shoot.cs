@@ -8,8 +8,6 @@ public abstract class Shoot : MonoBehaviour
     public bool isAiming;
     public bool isReloading;
     public bool canShoot;
-
-
     public virtual void PerformShoot(WeaponStats weaponStats, Vector3 shootPoint,Vector3 direction)
     {
    
@@ -17,15 +15,18 @@ public abstract class Shoot : MonoBehaviour
         if (Physics.Raycast(shootPoint, direction, out hit, weaponStats.shootingRange))
         {
             //define if its goint to be dust or blood
-            int effectType = 0;
+            int effectType;
 
             //cause damage if the object has the IDamagable interface
             if (hit.transform.GetComponent<IDamagable>() != null)
             {
-                hit.transform.GetComponent<IDamagable>()?.TakeDamage(weaponStats.weaponDamage);
                 effectType = 1;
-               
+                hit.transform.GetComponent<IDamagable>()?.TakeDamage(weaponStats.weaponDamage);
+                
+
             }
+            else
+                effectType = 0;
 
             //pool the particle from ObjectPooling script
             if (effectType == 0)

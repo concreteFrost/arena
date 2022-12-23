@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 using UnityEngine.AI;
 
 public class EnemyPatrolingBehaviour : StateMachineBehaviour
@@ -8,14 +9,19 @@ public class EnemyPatrolingBehaviour : StateMachineBehaviour
     Enemy enemy;
     float waitBeforeMove;
     float currentHealth;
+    int pointIndex;
+    public List<Transform> patrolPoints = new List<Transform> ();
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         enemy = animator.GetComponent<Enemy>();
-        waitBeforeMove = Random.Range(3, 10f);
+        waitBeforeMove = Random.Range(3, 7f);
         animator.SetBool("isAiming", false);
         currentHealth = enemy.health;
+       
+        patrolPoints = FindObjectOfType<PatrolPoints>().allZones.Find(x => x.zoneIndex == pointIndex).zones;
+        pointIndex = Random.Range(0, patrolPoints.Count-1);
 
     }
 
@@ -42,7 +48,8 @@ public class EnemyPatrolingBehaviour : StateMachineBehaviour
         {
           
             enemy.agent.Resume();
-            enemy.agent.SetDestination(RandomNavmeshLocation(Random.Range(10f, 20f), animator));
+            pointIndex = Random.Range(0, patrolPoints.Count - 1);
+            Patrol(animator,enemy.agent);
             waitBeforeMove = Random.Range(3, 10f);
         }
 
@@ -62,17 +69,9 @@ public class EnemyPatrolingBehaviour : StateMachineBehaviour
         enemy.agent.speed = enemy.speed;
     }
 
-    public Vector3 RandomNavmeshLocation(float radius, Animator animator)
+    public void Patrol(Animator anim,NavMeshAgent agent)
     {
-        Vector3 randomDirection = Random.insideUnitSphere * radius;
-        randomDirection += animator.transform.position;
-        NavMeshHit hit;
-        Vector3 finalPosition = Vector3.zero;
-        if (NavMesh.SamplePosition(randomDirection, out hit, radius, 1))
-        {
-            finalPosition = hit.position;
-        }
-        return finalPosition;
+        agent.SetDestination(patrolPoints[pointIndex].position);
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()

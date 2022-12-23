@@ -42,6 +42,7 @@ public class ObjectSpawner : SnapToSurface
     }
 
 
+
     public void Spawn(ObjectsToSpawnSO objectsToSpawn, List<GameObject> listToAdd, List<Transform> points)
     {
         ResetObjects(listToAdd);
@@ -69,6 +70,7 @@ public class ObjectSpawner : SnapToSurface
             GameObject go;
             go = Instantiate(tempList[i], points[i].position, Quaternion.identity);
             go.transform.parent = points[i];
+            go.name = go.name + i;
             listToAdd.Add(go);
         }
     }

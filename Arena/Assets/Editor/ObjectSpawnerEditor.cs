@@ -57,10 +57,6 @@ public class ObjectSpawnerEditor : Editor
             DestroyAllItems(obj);
         }
 
-     
-
-
-
     }
 
 
