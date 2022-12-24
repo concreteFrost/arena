@@ -15,6 +15,7 @@ public class EnemyShoot : Shoot
     {
 
         weaponStats = GetComponent<Enemy>().e_weapon.GetComponent<WeaponStats>();
+        weaponStats.gameObject.GetComponent<BoxCollider>().enabled = false;
         enemy = GetComponent<Enemy>();
         bulletsToShoot = Random.Range(1, 7);
         waitingTillNextShoot = false;

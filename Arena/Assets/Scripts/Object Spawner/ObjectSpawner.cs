@@ -59,11 +59,11 @@ public class ObjectSpawner : SnapToSurface
             
             for(int i = 0; i < diff; i++)
             {
-                tempList.Add(tempList[Random.Range(0, tempList.Count-1)]);
+                tempList.Add(tempList[i]);
             }
         }
 
-        ShuffleList(tempList);
+        ShuffleList(points);
 
         for (int i = 0; i < points.Count; i++)
         {
@@ -91,13 +91,19 @@ public class ObjectSpawner : SnapToSurface
     //Randomise Items in List
     void ShuffleList<T>(List<T> list)
     {
-        for (int i = 0; i < list.Count; i++)
-        {
-            T temp = list[i];
-            int rnd = Random.Range(0, list.Count);
-            list[i] = list[rnd];
-            list[rnd] = temp;
+    
+        //for (int i = 0; i < list.Count; i++)
+        //{
+        //    T temp = list[i];
+        //    int rnd = Random.Range(0, list.Count);
+        //    list[i] = list[rnd];
+        //    list[rnd] = temp;
 
+        //}
+
+        foreach(T item in list)
+        {
+            Debug.Log(item);
         }
     }
 

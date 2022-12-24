@@ -13,6 +13,7 @@ public class WeaponStats : MonoBehaviour, IInteractable
     public int bulletCount;
     public int bulletsInMagazine;
     public int bulletCapacity;
+    public int bulletsOnStart;
     public float recoilPower;
     public Sprite weaponImage;
     public TypeOfWeapon type;
@@ -42,6 +43,7 @@ public class WeaponStats : MonoBehaviour, IInteractable
         recoilPower = s_weapon.recoilPower;
         bulletCapacity = s_weapon.capacity;
         bulletsInMagazine = bulletCapacity;
+        bulletCount = s_weapon.capacity;
     }
 
     public void Interact(GameObject other)

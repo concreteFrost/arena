@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Enemy 2
   m_EditorClassIdentifier: 
   e_name: Dark Knight
-  e_health: 50
+  e_health: 45
   e_speed: 8
   hearingDistance: 70
   e_weapon: {fileID: 1236257789494122, guid: 8b0b86b42def11849a8eba21f4a6a684, type: 3}
