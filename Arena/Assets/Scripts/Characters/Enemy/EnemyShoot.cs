@@ -14,22 +14,22 @@ public class EnemyShoot : Shoot
     void Start()
     {
 
-        weaponStats = GetComponent<Enemy>().e_weapon.GetComponent<WeaponStats>();
-        weaponStats.gameObject.GetComponent<BoxCollider>().enabled = false;
         enemy = GetComponent<Enemy>();
         bulletsToShoot = Random.Range(1, 7);
-        waitingTillNextShoot = false;
+        StartCoroutine(WaitTillNextShoot(3));
+       
     }
 
     public void Shoot(Vector3 target)
     {
+        weaponStats = GetComponent<Enemy>().e_weapon.GetComponent<WeaponStats>();
 
         if (canShoot && bulletsToShoot > 0 && enemy.canSeePlayer)
         {
 
             bulletsToShoot--;
 
-            var errorMargin = 0.1f;
+            var errorMargin = 0.5f;
             var targetDir = (target + Random.insideUnitSphere * errorMargin) - transform.position;
 
             PerformShoot(weaponStats, weaponStats.shootingPoint.transform.position, targetDir);
@@ -44,10 +44,12 @@ public class EnemyShoot : Shoot
 
     IEnumerator WaitTillNextShoot(float s)
     {
+        canShoot = false;
         waitingTillNextShoot = true;
         yield return new WaitForSeconds(s);
         bulletsToShoot = Random.Range(1, 4);
         waitingTillNextShoot = false;
+        canShoot = true;
 
     }
 

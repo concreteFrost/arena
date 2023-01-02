@@ -18,8 +18,7 @@ public class EnemyPatrolingBehaviour : StateMachineBehaviour
         enemy = animator.GetComponent<Enemy>();
         waitBeforeMove = Random.Range(3, 7f);
         animator.SetBool("isAiming", false);
-        currentHealth = enemy.health;
-       
+        currentHealth = enemy.health;    
         patrolPoints = FindObjectOfType<PatrolPoints>().allZones.Find(x => x.zoneIndex == pointIndex).zones;
         pointIndex = Random.Range(0, patrolPoints.Count-1);
 
@@ -32,7 +31,7 @@ public class EnemyPatrolingBehaviour : StateMachineBehaviour
 
         var dist = Vector3.Distance(animator.transform.position, enemy.pl_pos.pos);
 
-        if (enemy.agent.remainingDistance <= 1f)
+        if (enemy.agent.remainingDistance <= 1f && enemy.agent.isActiveAndEnabled)
         {
             enemy.agent.Stop();
 
@@ -53,10 +52,10 @@ public class EnemyPatrolingBehaviour : StateMachineBehaviour
             waitBeforeMove = Random.Range(3, 10f);
         }
 
-        if (currentHealth > enemy.health || dist < 30 && enemy.canSeePlayer)
+        if (currentHealth > enemy.health || dist < 25 && enemy.canSeePlayer)
         {
 
-            animator.SetBool("isInAttackRange", true);
+            enemy.SwtichToShoot();
  
         }
 

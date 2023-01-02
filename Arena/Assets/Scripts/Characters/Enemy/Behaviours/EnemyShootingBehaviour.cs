@@ -32,7 +32,7 @@ public class EnemyShootingBehaviour : StateMachineBehaviour
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         FindOtherTargets();
-        
+        animator.transform.rotation = Quaternion.Slerp(animator.transform.rotation, Quaternion.LookRotation(currentTarget.transform.position - animator.transform.position), 15f * Time.deltaTime);
 
         if (timeToSwitchTarget > 0)
         {
@@ -49,17 +49,10 @@ public class EnemyShootingBehaviour : StateMachineBehaviour
             timeToSwitchTarget = Random.Range(3, 10);
         }
         
-
        
     }
 
-    void RotateTowardsTarget(Animator animator, GameObject currentTarget)
-    {
-        var lookPos = currentTarget.transform.position - animator.transform.position;
-        lookPos.y = 0;
-        var rotation = Quaternion.LookRotation(lookPos);
-        animator.transform.rotation = Quaternion.Slerp(animator.transform.rotation, rotation, Time.deltaTime * 2f);
-    }
+   
 
     void FindOtherTargets()
     {
@@ -88,7 +81,7 @@ public class EnemyShootingBehaviour : StateMachineBehaviour
     // OnStateMove is called right after Animator.OnAnimatorMove()
     override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        animator.transform.LookAt(new Vector3(currentTarget.transform.position.x, animator.transform.position.y, currentTarget.transform.position.z));
+        
     }
 
     // OnStateIK is called right after Animator.OnAnimatorIK()

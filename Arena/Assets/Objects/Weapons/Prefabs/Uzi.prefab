@@ -195,6 +195,7 @@ MonoBehaviour:
   bulletCount: 99
   bulletsInMagazine: 0
   bulletCapacity: 0
+  bulletsOnStart: 0
   recoilPower: 0
   weaponImage: {fileID: -1773907331, guid: dcfc4ab82fa6f4747ae6e72b27d7bcb5, type: 3}
   type: 1
@@ -215,7 +216,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.036269262, y: 0.14970443, z: 0.37248352}
+  m_Size: {x: 0.2, y: 0.27, z: 0.81}
   m_Center: {x: 0, y: -0.0033774823, z: -0.032502145}
 --- !u!82 &-2959451204850164951
 AudioSource:

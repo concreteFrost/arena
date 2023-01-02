@@ -15,6 +15,7 @@ TagManager:
   - hatPlacer
   - Weapon Holder
   - Cover
+  - Rescue Point
   layers:
   - Default
   - TransparentFX

@@ -7,6 +7,8 @@ public class Rescue : MonoBehaviour
 {
 
     public VariablesSO pl_Pos;
+    public GameEventSO rescueSaved;
+    public GameEventSO rescueDead;
     public NavMeshAgent agent;
     public Animator anim;
     Rigidbody[] rBodies;
@@ -14,6 +16,7 @@ public class Rescue : MonoBehaviour
     public bool isLookingAtPlayer;
     public Transform targetToLookAt;
     public bool isDead= false;
+    Transform rescuePoint;
 
     // Start is called before the first frame update
     void Start()
@@ -28,12 +31,37 @@ public class Rescue : MonoBehaviour
         {
             r.isKinematic = true;
         }
+
+        rescuePoint = GameObject.FindGameObjectWithTag("Rescue Point").transform;
     }
 
     private void Update()
     {
         isLookingAtPlayer = anim.GetBool("isFollowing");
+        RescueSaved();
 
+        if (health <= 0)
+        {
+            RescueDead();
+        }
+
+    }
+
+    void RescueSaved()
+    {
+        var dist = Vector3.Distance(transform.position, rescuePoint.position);
+
+        if(dist < 5)
+        {
+            rescueSaved.Raise();
+            gameObject.SetActive(false);
+            
+        }
+    }
+
+    void RescueDead()
+    {
+        rescueDead.Raise();
     }
 
     private void OnAnimatorIK(int layerIndex)

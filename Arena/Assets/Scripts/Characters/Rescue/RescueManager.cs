@@ -5,11 +5,20 @@ using UnityEngine;
 public class RescueManager : MonoBehaviour
 {
     Rescue rescue;
+ 
     // Start is called before the first frame update
     void Start()
     {
         rescue = GetComponentInParent<Rescue>();
+
     }
+
+    private void Update()
+    {
+        
+    }
+
+
 
 
     public void Wait()

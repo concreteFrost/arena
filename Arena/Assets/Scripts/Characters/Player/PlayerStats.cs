@@ -94,6 +94,9 @@ public class PlayerStats : MonoBehaviour
             health = 0;
             Die();
         }
+
+        if (Input.GetKeyDown(KeyCode.K))
+            health = 0;
     }
 
     public void TakeDamage(int damage)

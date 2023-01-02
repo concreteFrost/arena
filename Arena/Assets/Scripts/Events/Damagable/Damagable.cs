@@ -18,7 +18,7 @@ public class Damagable : MonoBehaviour, IDamagable
     {
         if (damageType == TypeOfDamage.head)
         {
-            damageAmount = (int)(damageAmount * 2f) + damageAmount;
+            damageAmount = (int)(damageAmount * 5f) + damageAmount;
 
         }
         healthEvent.Invoke(damageAmount);

@@ -45,18 +45,18 @@ public class Item : MonoBehaviour, IInteractable, ISpawnable
             if (match)
             {
                 match.GetComponent<WeaponStats>().bulletCount += addToValue;
+                StartCoroutine(DeactivateObject());
             }
                
         }
         else
         {
             other.GetComponent<PlayerStats>().health += addToValue;
-           
-        }
-            source.PlayOneShot(ammoStats.pickSound);
             StartCoroutine(DeactivateObject());
 
-            
+        }
+            source.PlayOneShot(ammoStats.pickSound);
+
     }
 
     public int DeductFromSpawn(int deductFromAmount)

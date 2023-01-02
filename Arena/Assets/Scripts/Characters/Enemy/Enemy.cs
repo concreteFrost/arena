@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 
 
-public class Enemy : MonoBehaviour
+public class Enemy : MonoBehaviour, ISpawnable
 {
     public EnemySO enemySO;
 
@@ -36,61 +36,69 @@ public class Enemy : MonoBehaviour
     public GameEventListener playerDead;
     public GameEventListener playerShooting;
 
+    public int amountToSpawn;
+    public GameEventSO respawn;
+    Vector3 respawnPosition;
+
 
     // Start is called before the first frame update
 
+    
+
     private void Awake()
     {
+       
         name = enemySO.name;
         health = enemySO.e_health;
         speed = enemySO.e_speed;
         e_weapon = Instantiate(enemySO.e_weapon, weaponHolder.position, weaponHolder.rotation);
         e_weapon.transform.parent = weaponHolder;
         fov = GetComponent<FieldOfView>();
+        
 
     }
     void Start()
     {
         anim = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
-
         rBodies = GetComponentsInChildren<Rigidbody>();
 
         foreach (var r in rBodies)
-        {
             r.isKinematic = true;
-        }
+
+        respawnPosition = transform.position;
 
     }
 
     private void Update()
     {
         canSeePlayer = fov.CanSeePlayer(transform, maxFOVAngle, lookRadius, pl_pos, "Player");
-        if (canSeePlayer)
-        {
-            Debug.Log("i seeeeeee");
-        }
-        
     }
+
 
     public void HeardTheShot()
     {
         var dist = Vector3.Distance(transform.position, pl_pos.pos);
         if (anim.GetCurrentAnimatorStateInfo(1).IsName("Patrol") && dist < enemySO.hearingDistance)
-            anim.SetBool("isInAttackRange", true);
+            StartCoroutine(SwitchToShootMode(2f));
     }
 
     public void Died()
     {
+        anim.enabled = false;
+        agent.enabled = false;
         foreach (var r in rBodies)
         {
             r.isKinematic = false;
         }
 
-        anim.enabled = false;
-        agent.enabled = false;
+      
         isDead = true;
-
+        ResetWeapon();
+       
+ 
+        StartCoroutine(DeactivateObject());
+        
     }
 
     public void TakeDamage(int damageAmount)
@@ -104,6 +112,11 @@ public class Enemy : MonoBehaviour
 
     }
 
+    public void LookAtTarget(GameObject target)
+    {
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(target.transform.position - transform.position),0.01f * Time.deltaTime);
+    }
+
 
     public void PlayerDead()
     {
@@ -113,4 +126,52 @@ public class Enemy : MonoBehaviour
 
     }
 
+    public void SwtichToShoot()
+    {
+        StartCoroutine(SwitchToShootMode(0.5f));
+    }
+
+    public IEnumerator SwitchToShootMode(float s)
+    {
+        yield return new WaitForSeconds(s);
+        anim.SetBool("isInAttackRange", true);
+    }
+
+    int ISpawnable.DeductFromSpawn(int deductFromAmount)
+    {
+       return amountToSpawn -= deductFromAmount;
+    }
+
+    IEnumerator DeactivateObject()
+    {
+        yield return new WaitForSeconds(300f);
+        gameObject.SetActive(false);
+        if (amountToSpawn > 0)
+        {
+            respawn.Raise();
+            Respawn();
+        }
+            
+    }
+
+    void Respawn()
+    {
+        anim.enabled = true;
+        agent.enabled = true;
+        isDead = false;
+        e_weapon = Instantiate(enemySO.e_weapon, weaponHolder.position, weaponHolder.rotation);
+        e_weapon.GetComponent<BoxCollider>().enabled = false;
+        e_weapon.transform.parent = weaponHolder;
+        health = enemySO.e_health;
+        transform.position = respawnPosition;
+    }
+
+    void ResetWeapon()
+    {
+        e_weapon.GetComponent<BoxCollider>().enabled = true;
+        e_weapon.transform.SetParent(null);
+        e_weapon.transform.position = new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z);
+        e_weapon.transform.rotation = new Quaternion(0, 0, 0, 0);
+        e_weapon = null;
+    }
 }

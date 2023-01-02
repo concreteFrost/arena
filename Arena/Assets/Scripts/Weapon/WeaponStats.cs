@@ -25,7 +25,6 @@ public class WeaponStats : MonoBehaviour, IInteractable
     public AudioClip shotSound;
     public AudioClip noAmmo;
     public ScriptableWeapon s_weapon;
-
     public Transform shootingPoint;
 
     private void Start()
@@ -46,17 +45,29 @@ public class WeaponStats : MonoBehaviour, IInteractable
         bulletCount = s_weapon.capacity;
     }
 
+    private void Update()
+    {
+        if(transform.parent == null)
+            transform.Rotate(Vector3.up * Time.deltaTime * 100f);
+    }
+
     public void Interact(GameObject other)
     {
         var inventory = other.GetComponent<Inventory>();
 
         //Check if the weapon is not presented in player`s inventory
-        var match = inventory.weapons.Any((x) => x.GetComponent<WeaponStats>().id == GetComponent<WeaponStats>().id);
+        var match = inventory.weapons.Any((x) => x.GetComponent<WeaponStats>().id == id);
 
         if (!match)
         {
             inventory.AddItem(gameObject);
             other.GetComponent<PlayerInteract>().AddToHand(gameObject);
+        }
+        else
+        {
+            var sameWeapon = inventory.weapons.FirstOrDefault(x => x.GetComponent<WeaponStats>().id == id);
+            sameWeapon.GetComponent<WeaponStats>().bulletCount += bulletCapacity;
+            gameObject.SetActive(false);
         }
     }
 

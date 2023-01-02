@@ -20,7 +20,6 @@ public class EnemyStrafeBehaviour : StateMachineBehaviour
     {
         agent = animator.GetComponent<NavMeshAgent>();
         agent.Resume();
-
         stats = animator.GetComponent<Enemy>();
        
        
@@ -105,10 +104,9 @@ public class EnemyStrafeBehaviour : StateMachineBehaviour
     }
     void StrafeDirection(Vector3 dir)
     {
-        agent.speed = 3.3f;
+        agent.speed = 2.5f;
 
         var dist = agent.transform.position - stats.pl_pos.pos;
-      
         Vector3 enemyDirection = Vector3.Cross(dist, dir);
         agent.SetDestination(agent.transform.position - enemyDirection);
     }

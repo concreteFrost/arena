@@ -18,12 +18,14 @@ public class ObjectSpawner : SnapToSurface
 
     public int maxItemsToRespawn;
     public int maxWeaponsToRespawn;
+    public int maxEnemiesToRespawn;
 
     public void Respawn()
     {
         List<List<GameObject>> list = new List<List<GameObject>>();
         list.Add(weaponsOnStage);
         list.Add(itemsOnStage);
+        list.Add(enemiesOnStage);
 
         foreach(var l in list)
         {
